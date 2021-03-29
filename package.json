@@ -2,8 +2,8 @@
   "name": "@indoor-analytics/random-lines-clustering",
   "version": "0.0.1",
   "description": "Clusters a bunch of paths using random-picked lines.",
-  "main": "src/main.js",
-  "types": "src/main.d.ts",
+  "main": "main.js",
+  "types": "main.d.ts",
   "scripts": {
     "build": "npx tsc",
     "prepare": "npm run build",
