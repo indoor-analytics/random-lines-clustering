@@ -14,4 +14,10 @@ describe ('computeRandomLines options companion object', () => {
         const lines = computeRandomLines(actualFlandersRailwayBbox);
         expect(lines.length).to.equal(COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS.linesCount);
     });
+
+    it ('should produce 42 lines', () => {
+        const linesCount = 42;
+        const lines = computeRandomLines(actualFlandersRailwayBbox, {linesCount});
+        expect(lines.length).to.equal(linesCount);
+    })
 });
