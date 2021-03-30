@@ -12,6 +12,7 @@
   "author": "Rémy Raes",
   "license": "ISC",
   "devDependencies": {
+    "@turf/boolean-point-on-line": "^6.3.0",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.1",
