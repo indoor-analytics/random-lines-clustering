@@ -16,10 +16,6 @@ describe ('computeRandomLines', () => {
             expect(booleanPointOnLine(line.geometry.coordinates[1], perimeter as Feature<LineString>)).to.equal(true);
         }
     });
-
-    it ('should fail', () => {
-        expect(true).to.equal(false);
-    });
 });
 
 describe ('computeRandomLines options companion object', () => {
