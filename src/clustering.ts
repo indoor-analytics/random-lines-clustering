@@ -1,7 +1,7 @@
 import {Feature, featureCollection, LineString, Polygon} from "@turf/helpers";
 import bbox from "@turf/bbox";
 import bboxPolygon from "@turf/bbox-polygon";
-import {computeRandomLines} from "./computeRandomLines";
+import {computeRandomLines} from "./randomLines/computeRandomLines";
 import {IntersectionsLine} from "./intersections/IntersectionsLine";
 import {getPathsIntersections} from "./intersections/getPathsIntersections";
 import {getClusteredIntersections} from "./intersectionsClustering/getClusteredIntersections";
