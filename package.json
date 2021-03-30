@@ -23,9 +23,12 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
+    "@turf/along": "^6.3.0",
     "@turf/bbox": "^5.1.5",
     "@turf/bbox-polygon": "^6.3.0",
     "@turf/helpers": "^6.3.0",
+    "@turf/length": "^6.3.0",
+    "@turf/polygon-to-line": "^6.3.0",
     "@turf/random": "^6.3.0",
     "geojson": "^0.5.0",
     "random-seed": "^0.3.0",

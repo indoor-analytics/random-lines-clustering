@@ -1,4 +1,4 @@
-import {BBox, Feature, featureCollection, Polygon, polygon} from "@turf/helpers";
+import {BBox, Feature, Polygon, polygon} from "@turf/helpers";
 import bbox from "@turf/bbox";
 
 export const actualFlandersRailway: Feature<Polygon> = polygon(
