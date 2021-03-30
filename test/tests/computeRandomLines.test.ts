@@ -2,6 +2,8 @@ import { expect } from "chai";
 import {computeRandomLines} from "../../src/randomLines/computeRandomLines";
 import {COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS} from "../../src/randomLines/ComputeRandomLinesOptions";
 import {actualFlandersRailway} from "../features/zones";
+import {printCollectionToFile} from "../utils/printGeoJSONtoFile";
+import {featureCollection} from "@turf/helpers";
 
 describe ('computeRandomLines', () => {
     it ('should fail', () => {
@@ -19,6 +21,7 @@ describe ('computeRandomLines options companion object', () => {
         const linesCount = 42;
         const lines = computeRandomLines(actualFlandersRailway, {linesCount});
         expect(lines.length).to.equal(linesCount);
+        printCollectionToFile(featureCollection(lines));
     });
 
     it ('should compute 996 lines while providing seed', () => {
