@@ -19,5 +19,11 @@ describe ('computeRandomLines options companion object', () => {
         const linesCount = 42;
         const lines = computeRandomLines(actualFlandersRailwayBbox, {linesCount});
         expect(lines.length).to.equal(linesCount);
-    })
+    });
+
+    it ('should compute 996 lines while providing seed', () => {
+        const linesCount = 996;
+        const lines = computeRandomLines(actualFlandersRailwayBbox, {linesCount, seed: 'hola'});
+        expect(lines.length).to.equal(linesCount);
+    });
 });
