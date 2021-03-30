@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import {computeRandomLines} from "../../src/randomLines/computeRandomLines";
 import {COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS} from "../../src/randomLines/ComputeRandomLinesOptions";
+import {actualFlandersRailway} from "../features/zones";
 
 describe ('computeRandomLines', () => {
     it ('should fail', () => {
@@ -10,7 +11,7 @@ describe ('computeRandomLines', () => {
 
 describe ('computeRandomLines options companion object', () => {
     it ('should produce as many lines as default option', () => {
-        const lines = computeRandomLines();
+        const lines = computeRandomLines(actualFlandersRailway);
         expect(lines.length).to.equal(COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS.linesCount);
     });
 });
