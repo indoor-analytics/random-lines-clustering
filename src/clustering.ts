@@ -1,4 +1,4 @@
-import {Feature, LineString, Polygon} from "@turf/helpers";
+import {Feature, featureCollection, LineString, Polygon} from "@turf/helpers";
 import bbox from "@turf/bbox";
 import bboxPolygon from "@turf/bbox-polygon";
 import {computeRandomLines} from "./computeRandomLines";
@@ -11,21 +11,19 @@ import {buildClusteredPaths} from "./buildClusteredPaths";
 /**
  * Clusters a bunch of paths using random-picked lines.
  *
- * @param zoneOfInterest
- * @param paths
+ * @param paths input paths
  */
 export function clusterPaths (
-    zoneOfInterest: Feature<Polygon>,
-    paths: Feature<LineString>[],
+    paths: Feature<LineString>[]
 ): Feature<LineString>[] {
-    // 1. Define a bounding box around the zone of interest
-    const boundingBox: Feature<Polygon> = bboxPolygon(bbox(zoneOfInterest));
+    // 1. Define a bounding box around input paths
+    const zoneOfInterest: Feature<Polygon> = bboxPolygon(bbox(featureCollection(paths)));
 
     // 2. Draw random lines crossing the bounding box
-    const randomLines: Feature<LineString>[] = computeRandomLines(boundingBox);
+    const randomLines: Feature<LineString>[] = computeRandomLines(zoneOfInterest);
 
     // 3. Mark all intersections with input paths
-    const intersections: IntersectionsLine[] = getPathsIntersections(boundingBox, paths, randomLines);
+    const intersections: IntersectionsLine[] = getPathsIntersections(zoneOfInterest, paths, randomLines);
 
     // 4. Cluster intersections
     const clusteredIntersections: ClusteredIntersectionsLine[] = getClusteredIntersections(intersections);
