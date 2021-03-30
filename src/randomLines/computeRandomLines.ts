@@ -12,7 +12,7 @@ export function computeRandomLines (
 ): Feature<LineString>[] {
     const allOptions = getComputeRandomLinesOptions(options);
     const lines: Feature<LineString>[] = [];
-    const randomGenerator = randomSeedGenerator.create(allOptions.seed);
+    const randomGenerator = randomSeedGenerator.create(allOptions.seedGenerator!());
 
     // TODO fix number | undefined
     for (let i=0; i<allOptions.linesCount!; i++) {

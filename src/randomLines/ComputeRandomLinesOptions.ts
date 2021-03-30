@@ -2,12 +2,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 export interface ComputeRandomLinesOptions {
     linesCount?: number;
-    seed?: string;
+    seedGenerator?: () => string;
 }
 
 export const COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS: ComputeRandomLinesOptions = {
     linesCount: 10,
-    seed: uuidv4()
+    seedGenerator: () => uuidv4()
 };
 
 /**
@@ -19,6 +19,6 @@ export const COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS: ComputeRandomLinesOptions = 
 export function getComputeRandomLinesOptions (
     options: ComputeRandomLinesOptions
 ): ComputeRandomLinesOptions {
-    const defaultsClone = JSON.parse(JSON.stringify(COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS));
+    const defaultsClone = Object.assign({}, COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS);
     return Object.assign(defaultsClone, options);
 }

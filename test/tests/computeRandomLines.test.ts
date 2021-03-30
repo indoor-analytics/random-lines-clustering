@@ -23,7 +23,7 @@ describe ('computeRandomLines options companion object', () => {
 
     it ('should compute 996 lines while providing seed', () => {
         const linesCount = 996;
-        const lines = computeRandomLines(actualFlandersRailwayBbox, {linesCount, seed: 'hola'});
+        const lines = computeRandomLines(actualFlandersRailwayBbox, {linesCount, seedGenerator: () => 'hola'});
         expect(lines.length).to.equal(linesCount);
     });
 
@@ -35,9 +35,9 @@ describe ('computeRandomLines options companion object', () => {
     });
 
     it ('should compute exact same lines with same seed', () => {
-        const seed = 'this_is_a_random_seed';
-        const lines1 = computeRandomLines(actualFlandersRailwayBbox, {seed});
-        const lines2 = computeRandomLines(actualFlandersRailwayBbox, {seed});
+        const seedGenerator = () => 'this_is_a_random_seed';
+        const lines1 = computeRandomLines(actualFlandersRailwayBbox, {seedGenerator});
+        const lines2 = computeRandomLines(actualFlandersRailwayBbox, {seedGenerator});
         expect(lines1).to.deep.equal(lines2);
     });
 });

@@ -1,6 +1,6 @@
 export interface ComputeRandomLinesOptions {
     linesCount?: number;
-    seed?: string;
+    seedGenerator?: () => string;
 }
 export declare const COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS: ComputeRandomLinesOptions;
 /**
