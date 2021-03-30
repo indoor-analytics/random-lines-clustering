@@ -28,4 +28,4 @@ export const actualFlandersRailway: Feature<Polygon> = polygon(
     ]
 );
 
-export const actualFlandersRailwayBbox: BBox = bbox(featureCollection(actualFlandersRailway));
+export const actualFlandersRailwayBbox: BBox = bbox(actualFlandersRailway);
