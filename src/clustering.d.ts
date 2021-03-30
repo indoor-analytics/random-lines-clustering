@@ -1,8 +1,7 @@
-import { Feature, LineString, Polygon } from "@turf/helpers";
+import { Feature, LineString } from "@turf/helpers";
 /**
  * Clusters a bunch of paths using random-picked lines.
  *
- * @param zoneOfInterest
- * @param paths
+ * @param paths input paths
  */
-export declare function clusterPaths(zoneOfInterest: Feature<Polygon>, paths: Feature<LineString>[]): Feature<LineString>[];
+export declare function clusterPaths(paths: Feature<LineString>[]): Feature<LineString>[];
