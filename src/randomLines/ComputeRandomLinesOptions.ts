@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export interface ComputeRandomLinesOptions {
     linesCount?: number;
     seed?: string;
@@ -5,7 +7,7 @@ export interface ComputeRandomLinesOptions {
 
 export const COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS: ComputeRandomLinesOptions = {
     linesCount: 10,
-    seed: ''    // TODO generate random seed
+    seed: uuidv4()
 };
 
 /**
