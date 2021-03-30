@@ -34,13 +34,12 @@ export function computeRandomLines (
         while (arePointsOnSameSegment(firstPosition, secondPosition, areaPerimeter as Feature<LineString>))
             secondPosition = getRandomPositionAlongPerimeter();
 
-        const line = lineString([
-            firstPosition.geometry.coordinates,
-            secondPosition.geometry.coordinates
-        ]);
-
-        lines.push( line );
-        console.log(line.geometry.coordinates);
+        lines.push(
+            lineString([
+                firstPosition.geometry.coordinates,
+                secondPosition.geometry.coordinates
+            ])
+        );
     }
 
     return lines;
