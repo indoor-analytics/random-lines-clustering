@@ -21,7 +21,7 @@ export function clusterPaths (
     const zoneOfInterest: Feature<Polygon> = bboxPolygon(boundingBox);
 
     // 2. Draw random lines crossing the bounding box
-    const randomLines: Feature<LineString>[] = computeRandomLines(zoneOfInterest);
+    const randomLines: Feature<LineString>[] = computeRandomLines(boundingBox);
 
     // 3. Mark all intersections with input paths
     const intersections: IntersectionsLine[] = getPathsIntersections(zoneOfInterest, paths, randomLines);

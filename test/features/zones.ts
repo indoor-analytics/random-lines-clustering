@@ -1,6 +1,7 @@
-import {polygon} from "@turf/helpers";
+import {BBox, Feature, featureCollection, Polygon, polygon} from "@turf/helpers";
+import bbox from "@turf/bbox";
 
-export const actualFlandersRailwayBbox = polygon(
+export const actualFlandersRailway: Feature<Polygon> = polygon(
     [
         [
             [
@@ -26,3 +27,5 @@ export const actualFlandersRailwayBbox = polygon(
         ]
     ]
 );
+
+export const actualFlandersRailwayBbox: BBox = bbox(featureCollection(actualFlandersRailway));
