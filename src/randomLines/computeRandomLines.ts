@@ -4,7 +4,7 @@ import {
     ComputeRandomLinesOptions,
     getComputeRandomLinesOptions
 } from "./ComputeRandomLinesOptions";
-import {randomPosition} from "@turf/random";
+const randomSeedGenerator = require('random-seed');
 
 export function computeRandomLines (
     area: BBox,
@@ -12,14 +12,23 @@ export function computeRandomLines (
 ): Feature<LineString>[] {
     const allOptions = getComputeRandomLinesOptions(options);
     const lines: Feature<LineString>[] = [];
+    const randomGenerator = randomSeedGenerator.create(allOptions.seed);
 
     // TODO fix number | undefined
     for (let i=0; i<allOptions.linesCount!; i++) {
-        const firstPosition = randomPosition(area);
-        const secondPosition = randomPosition(area);
-        lines.push(
-            lineString([firstPosition, secondPosition])
-        );
+        const line = lineString([
+            [
+                randomGenerator.floatBetween(area[0], area[2]),
+                randomGenerator.floatBetween(area[1], area[3])
+            ],
+            [
+                randomGenerator.floatBetween(area[0], area[2]),
+                randomGenerator.floatBetween(area[1], area[3])
+            ],
+        ]);
+
+        lines.push( line );
+        console.log(line.geometry.coordinates);
     }
 
     return lines;

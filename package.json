@@ -28,6 +28,7 @@
     "@turf/helpers": "^6.3.0",
     "@turf/random": "^6.3.0",
     "geojson": "^0.5.0",
+    "random-seed": "^0.3.0",
     "uuid": "^8.3.2"
   }
 }
