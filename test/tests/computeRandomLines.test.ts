@@ -2,9 +2,10 @@ import { expect } from "chai";
 import {computeRandomLines} from "../../src/randomLines/computeRandomLines";
 import {COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS} from "../../src/randomLines/ComputeRandomLinesOptions";
 import {actualFlandersRailway} from "../features/zones";
-import {Feature, LineString} from "@turf/helpers";
+import {Feature, featureCollection, LineString} from "@turf/helpers";
 import {polygonToLine} from "@turf/polygon-to-line";
 import pointToLineDistance from "@turf/point-to-line-distance";
+import {printCollectionToFile} from "../utils/printGeoJSONtoFile";
 
 describe ('computeRandomLines', () => {
     it ('should compute lines which contain two positions each', () => {
@@ -30,6 +31,13 @@ describe ('computeRandomLines options companion object', () => {
     it ('should produce as many lines as default option', () => {
         const lines = computeRandomLines(actualFlandersRailway);
         expect(lines.length).to.equal(COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS.linesCount);
+    });
+
+    it ('should create one line', () => {
+        const linesCount = 1;
+        const lines = computeRandomLines(actualFlandersRailway, {linesCount});
+        expect(lines.length).to.equal(linesCount);
+        printCollectionToFile(featureCollection((lines)));
     });
 
     it ('should produce 42 lines', () => {
