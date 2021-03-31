@@ -2425,5 +2425,7 @@ export const mouais3run = lineString([
     ]
 ]);
 
-// those are generated runs from indoor-analytics web application.
-export const runs = [testRun, test3run, test3bisRun, test4run, mouaisRun, mouais2run, mouais3run];
+/**
+ * Those are generated runs from indoor-analytics web application.
+ */
+export const flandersRuns = [testRun, test3run, test3bisRun, test4run, mouaisRun, mouais2run, mouais3run];

@@ -1,12 +1,12 @@
 import {lineString} from "@turf/helpers";
 
-const randomLine1 = lineString([
-    [
-        3.069930885790112,
-        50.63755384359476
-    ],
+export const randomLine1 = lineString([
     [
         3.069530411938615,
-        50.636565396795476
+        50.6368081434417
+    ],
+    [
+        3.075490534145672,
+        50.634641457090716
     ]
 ]);
