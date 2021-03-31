@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export interface ComputeRandomLinesOptions {
-    linesCount?: number;
-    seedGenerator?: () => string;
+    linesCount: number;
+    seedGenerator: () => string;
 }
 
 export const COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS: ComputeRandomLinesOptions = {
@@ -17,7 +17,7 @@ export const COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS: ComputeRandomLinesOptions = 
  * @param options user-provided options
  */
 export function getComputeRandomLinesOptions (
-    options: ComputeRandomLinesOptions
+    options: Partial<ComputeRandomLinesOptions>
 ): ComputeRandomLinesOptions {
     const defaultsClone = Object.assign({}, COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS);
     return Object.assign(defaultsClone, options);

@@ -12,7 +12,7 @@ const randomSeedGenerator = require('random-seed');
 
 export function computeRandomLines (
     area: Feature<Polygon>,
-    options: ComputeRandomLinesOptions = COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS
+    options: Partial<ComputeRandomLinesOptions> = COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS
 ): Feature<LineString>[] {
     const allOptions = getComputeRandomLinesOptions(options);
     const lines: Feature<LineString>[] = [];
@@ -25,8 +25,7 @@ export function computeRandomLines (
         return along(areaPerimeter as Feature<LineString>, randomGenerator.floatBetween(0, perimeterLength));
     }
 
-    // TODO fix number | undefined
-    for (let i=0; i<allOptions.linesCount!; i++) {
+    for (let i=0; i<allOptions.linesCount; i++) {
         const firstPosition = getRandomPositionAlongPerimeter();
         let secondPosition = getRandomPositionAlongPerimeter();
 
