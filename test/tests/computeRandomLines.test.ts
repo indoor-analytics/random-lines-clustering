@@ -4,16 +4,18 @@ import {COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS} from "../../src/randomLines/Compu
 import {actualFlandersRailway} from "../features/zones";
 import {Feature, LineString, point} from "@turf/helpers";
 import {polygonToLine} from "@turf/polygon-to-line";
-import booleanPointOnLine from "@turf/boolean-point-on-line";
+import pointToLineDistance from "@turf/point-to-line-distance";
 
 describe ('computeRandomLines', () => {
     it ('should compute lines whose coordinates belong to area perimeter', () => {
         const lines = computeRandomLines(actualFlandersRailway);
-        const perimeter = polygonToLine(actualFlandersRailway);
+        const perimeter = polygonToLine(actualFlandersRailway) as Feature<LineString>;
 
         for (const line of lines) {
-            expect(booleanPointOnLine(point(line.geometry.coordinates[0]), perimeter as Feature<LineString>)).to.equal(true);
-            expect(booleanPointOnLine(line.geometry.coordinates[1], perimeter as Feature<LineString>)).to.equal(true);
+            const p1DistanceToPerimeter = pointToLineDistance(line.geometry.coordinates[0], perimeter);
+            expect(p1DistanceToPerimeter).to.be.approximately(0, 0.00001);
+            const p2DistanceToPerimeter = pointToLineDistance(line.geometry.coordinates[1], perimeter);
+            expect(p2DistanceToPerimeter).to.be.approximately(0, 0.00001);
         }
     });
 });
