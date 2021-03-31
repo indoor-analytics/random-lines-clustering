@@ -2,11 +2,17 @@ import { expect } from "chai";
 import {computeRandomLines} from "../../src/randomLines/computeRandomLines";
 import {COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS} from "../../src/randomLines/ComputeRandomLinesOptions";
 import {actualFlandersRailway} from "../features/zones";
-import {Feature, LineString, point} from "@turf/helpers";
+import {Feature, LineString} from "@turf/helpers";
 import {polygonToLine} from "@turf/polygon-to-line";
 import pointToLineDistance from "@turf/point-to-line-distance";
 
 describe ('computeRandomLines', () => {
+    it ('should compute lines which contain two positions each', () => {
+        const lines = computeRandomLines(actualFlandersRailway);
+        for (const line of lines)
+            expect(line.geometry.coordinates.length).to.equal(2);
+    });
+
     it ('should compute lines whose coordinates belong to area perimeter', () => {
         const lines = computeRandomLines(actualFlandersRailway);
         const perimeter = polygonToLine(actualFlandersRailway) as Feature<LineString>;
