@@ -3,7 +3,7 @@ import {actualFlandersRailway} from "../features/zones";
 import {randomLine1} from "../features/lines";
 import { expect } from "chai";
 import {mouais2run, mouaisRun} from "../features/runs";
-import booleanPointOnLine from "@turf/boolean-point-on-line";
+import pointToLineDistance from "@turf/point-to-line-distance";
 
 describe ('getPathsIntersections', () => {
    it ('should build intersection line', () => {
@@ -19,6 +19,6 @@ describe ('getPathsIntersections', () => {
       expect(intersectLine.intersections.length).to.equal(6);
 
       for (const intersection of intersectLine.intersections)
-         expect(booleanPointOnLine(intersection, intersectLine.line)).to.equal(true);
+         expect(pointToLineDistance(intersection, intersectLine.line)).to.be.approximately(0, 0.000000001);
    })
 });
