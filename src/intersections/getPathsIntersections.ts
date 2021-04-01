@@ -1,9 +1,8 @@
 import {IntersectionsLine} from "./IntersectionsLine";
-import {Feature, LineString, Point, Polygon} from "@turf/helpers";
+import {Feature, LineString, Point} from "@turf/helpers";
 import lineIntersect from "@turf/line-intersect";
 
 export function getPathsIntersections (
-    zoneOfInterest: Feature<Polygon>,
     inputPaths: Feature<LineString>[],
     randomLines: Feature<LineString>[]
 ): IntersectionsLine[] {

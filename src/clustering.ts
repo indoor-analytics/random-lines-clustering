@@ -22,7 +22,7 @@ export function clusterPaths (
     const randomLines: Feature<LineString>[] = computeRandomLines(zoneOfInterest);
 
     // 3. Mark all intersections with input paths
-    const intersections: IntersectionsLine[] = getPathsIntersections(zoneOfInterest, paths, randomLines);
+    const intersections: IntersectionsLine[] = getPathsIntersections(paths, randomLines);
 
     // 4. Cluster intersections
     const clusteredIntersections: ClusteredIntersectionsLine[] = getClusteredIntersections(intersections);
