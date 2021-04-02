@@ -1,4 +1,4 @@
-import {Feature, lineString, LineString, MultiLineString, Point, Polygon, Properties} from "@turf/helpers";
+import {Feature, lineString, LineString, Point, Polygon} from "@turf/helpers";
 import {
     COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS,
     ComputeRandomLinesOptions,
