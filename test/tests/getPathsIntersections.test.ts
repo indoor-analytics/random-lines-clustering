@@ -3,7 +3,7 @@ import {randomLine1} from "../features/lines";
 import { expect } from "chai";
 import {
    mouais2run,
-   mouaisRun,
+   mouaisRun, slalomingAroundLineRun,
    straightBottomToTopRun,
    straightBottomToTopRun2,
    straightTopToBottomRun
@@ -27,7 +27,34 @@ describe ('getPathsIntersections', () => {
 
       for (const intersection of intersectLine.intersections)
          expect(pointToLineDistance(intersection, intersectLine.line)).to.be.approximately(0, 0.000000001);
-   })
+   });
+
+   // https://gist.github.com/Alystrasz/6ea1c20b0605cc0b482903b76cd5d716
+   it ('should build line intersecting random line several times', () => {
+      const intersections = getPathsIntersections([slalomingAroundLineRun], [randomLine1]);
+      const intersectLine = intersections[0];
+      expect(intersectLine.intersections.length).to.equal(3);
+
+      // checking directions
+      const directionsMap: {[id: string]: number} = {};
+      for (const intersection of intersectLine.intersections) {
+         const direction = intersection.properties!.direction;
+         if (!directionsMap[direction]) {
+            directionsMap[direction] = 1;
+         } else {
+            directionsMap[direction] += 1;
+         }
+      }
+
+      const directions: string[] = Object.keys(directionsMap);
+      expect(directions.length).to.equal(2);
+      if (directionsMap[directions[0]] === 1)
+         expect(directionsMap[directions[1]]).to.equal(2);
+      else {
+         expect(directionsMap[directions[0]]).to.equal(2);
+         expect(directionsMap[directions[1]]).to.equal(1);
+      }
+   });
 });
 
 
