@@ -18,11 +18,28 @@ export function getPathsIntersections (
         const intersections: Feature<Point>[] = [];
 
         for (const inputPath of inputPaths) {
-            intersections.push(
-                ...lineIntersect(line, inputPath).features
-            );
+            for (const localIntersection of lineIntersect(line, inputPath).features) {
+                localIntersection.properties!.direction = getIntersectionDirection(inputPath, line, localIntersection);
+                intersections.push( localIntersection );
+            }
         }
 
         return new IntersectionsLine(line, intersections)
     });
+}
+
+
+/**
+ * Returns a number identifying intersection direction.
+ *
+ * @param inputPath
+ * @param randomLine
+ * @param intersection
+ */
+export function getIntersectionDirection (
+    inputPath: Feature<LineString>,
+    randomLine: Feature<LineString>,
+    intersection: Feature<Point>
+): number {
+    return 0;
 }
