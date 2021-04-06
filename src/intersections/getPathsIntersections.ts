@@ -17,18 +17,23 @@ export function getPathsIntersections (
     randomLines: Feature<LineString>[]
 ): IntersectionsLine[] {
 
-    return randomLines.map((line) => {
+    const lines: IntersectionsLine[] = [];
+
+    for (const randomLine of randomLines) {
         const intersections: Feature<Point>[] = [];
 
         for (const inputPath of inputPaths) {
-            for (const localIntersection of lineIntersect(line, inputPath).features) {
-                localIntersection.properties!.direction = getIntersectionDirection(inputPath, line, localIntersection);
+            for (const localIntersection of lineIntersect(randomLine, inputPath).features) {
+                localIntersection.properties!.direction = getIntersectionDirection(inputPath, randomLine, localIntersection);
                 intersections.push( localIntersection );
             }
         }
 
-        return new IntersectionsLine(line, intersections)
-    });
+        if (intersections.length !== 0)
+            lines.push( new IntersectionsLine(randomLine, intersections) );
+    }
+
+    return lines;
 }
 
 
