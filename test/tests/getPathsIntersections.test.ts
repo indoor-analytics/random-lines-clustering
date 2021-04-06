@@ -11,6 +11,7 @@ describe ('getPathsIntersections', () => {
       expect(intersections[0].line).to.deep.equal(randomLine1);
    });
 
+   // https://gist.github.com/Alystrasz/62137f60b8c45eb7cfd102ab675a63bb
    it ('should build line with correct intersections', () => {
       const intersections = getPathsIntersections([mouaisRun, mouais2run], [randomLine1]);
       const intersectLine = intersections[0];
