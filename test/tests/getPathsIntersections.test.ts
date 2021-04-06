@@ -3,7 +3,7 @@ import {randomLine1} from "../features/lines";
 import { expect } from "chai";
 import {
    mouais2run,
-   mouaisRun, slalomingAroundLineRun,
+   mouaisRun, notCrossingLineRun, slalomingAroundLineRun,
    straightBottomToTopRun,
    straightBottomToTopRun2,
    straightTopToBottomRun
@@ -54,6 +54,12 @@ describe ('getPathsIntersections', () => {
          expect(directionsMap[directions[0]]).to.equal(2);
          expect(directionsMap[directions[1]]).to.equal(1);
       }
+   });
+
+   // https://gist.github.com/Alystrasz/d06ab9213e44534eced3ae23d461be85
+   it ('should not get intersections for non-crossing paths', () => {
+      const intersections = getPathsIntersections([notCrossingLineRun], [randomLine1]);
+      expect(intersections.length).to.equal(0);
    });
 });
 
