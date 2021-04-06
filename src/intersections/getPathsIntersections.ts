@@ -53,7 +53,8 @@ export function getIntersectionDirection (
     // picking path point before intersection
     do {
         previousPathPoint = inputPath.geometry.coordinates[i];
-        distanceToOrigin = length(lineSlice(inputPath.geometry.coordinates[0], previousPathPoint, inputPath));
+        distanceToOrigin =
+            length(lineSlice(inputPath.geometry.coordinates[0], previousPathPoint, inputPath), {units: 'meters'});
         i -= 1;
     } while (distanceToOrigin > intersectionDistanceToOrigin && i >= 0);
 
