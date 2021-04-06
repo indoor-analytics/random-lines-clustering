@@ -1,8 +1,9 @@
-import {getPathsIntersections} from "../../src/intersections/getPathsIntersections";
+import {getIntersectionDirection, getPathsIntersections} from "../../src/intersections/getPathsIntersections";
 import {randomLine1} from "../features/lines";
 import { expect } from "chai";
-import {mouais2run, mouaisRun} from "../features/runs";
+import {mouais2run, mouaisRun, straightBottomToTopRun, straightTopToBottomRun} from "../features/runs";
 import pointToLineDistance from "@turf/point-to-line-distance";
+import lineIntersect from "@turf/line-intersect";
 
 describe ('getPathsIntersections', () => {
    it ('should build intersection line', () => {
@@ -21,4 +22,17 @@ describe ('getPathsIntersections', () => {
       for (const intersection of intersectLine.intersections)
          expect(pointToLineDistance(intersection, intersectLine.line)).to.be.approximately(0, 0.000000001);
    })
+});
+
+
+describe ('getIntersectionDirection', () => {
+   it ('should feature two intersections with two different directions', () => {
+      const intersection1 = lineIntersect(straightBottomToTopRun, randomLine1).features[0];
+      const direction1 = getIntersectionDirection(straightBottomToTopRun, randomLine1, intersection1);
+
+      const intersection2 = lineIntersect(straightTopToBottomRun, randomLine1).features[0];
+      const direction2 = getIntersectionDirection(straightTopToBottomRun, randomLine1, intersection2);
+
+      expect(direction1).to.not.equal(direction2);
+   });
 });

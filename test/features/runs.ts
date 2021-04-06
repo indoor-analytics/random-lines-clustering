@@ -2425,7 +2425,33 @@ export const mouais3run = lineString([
     ]
 ]);
 
+
+
 /**
  * Those are generated runs from indoor-analytics web application.
  */
 export const flandersRuns = [testRun, test3run, test3bisRun, test4run, mouaisRun, mouais2run, mouais3run];
+
+
+
+export const straightBottomToTopRun = lineString([
+    [
+        3.073377013206482,
+        50.63460771020077
+    ],
+    [
+        3.0741870403289795,
+        50.63691111604743
+    ]
+]);
+
+export const straightTopToBottomRun = lineString([
+    [
+        3.0714458227157593,
+        50.6372241255598
+    ],
+    [
+        3.0708879232406616,
+        50.63478803998953
+    ]
+]);
