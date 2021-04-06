@@ -1,7 +1,13 @@
 import {getIntersectionDirection, getPathsIntersections} from "../../src/intersections/getPathsIntersections";
 import {randomLine1} from "../features/lines";
 import { expect } from "chai";
-import {mouais2run, mouaisRun, straightBottomToTopRun, straightTopToBottomRun} from "../features/runs";
+import {
+   mouais2run,
+   mouaisRun,
+   straightBottomToTopRun,
+   straightBottomToTopRun2,
+   straightTopToBottomRun
+} from "../features/runs";
 import pointToLineDistance from "@turf/point-to-line-distance";
 import lineIntersect from "@turf/line-intersect";
 
@@ -26,6 +32,7 @@ describe ('getPathsIntersections', () => {
 
 
 describe ('getIntersectionDirection', () => {
+   // https://gist.github.com/Alystrasz/207e3efbdb37d93e83d2309c93784304
    it ('should feature two intersections with two different directions', () => {
       const intersection1 = lineIntersect(straightBottomToTopRun, randomLine1).features[0];
       const direction1 = getIntersectionDirection(straightBottomToTopRun, randomLine1, intersection1);
@@ -34,5 +41,16 @@ describe ('getIntersectionDirection', () => {
       const direction2 = getIntersectionDirection(straightTopToBottomRun, randomLine1, intersection2);
 
       expect(direction1).to.not.equal(direction2);
+   });
+
+   // https://gist.github.com/Alystrasz/8c7cee9622453e9ae8c78f1487c59620
+   it ('should feature two intersections with same direction', () => {
+      const intersection1 = lineIntersect(straightBottomToTopRun, randomLine1).features[0];
+      const direction1 = getIntersectionDirection(straightBottomToTopRun, randomLine1, intersection1);
+
+      const intersection2 = lineIntersect(straightBottomToTopRun2, randomLine1).features[0];
+      const direction2 = getIntersectionDirection(straightBottomToTopRun2, randomLine1, intersection2);
+
+      expect(direction1).to.equal(direction2);
    });
 });

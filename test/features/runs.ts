@@ -2445,6 +2445,17 @@ export const straightBottomToTopRun = lineString([
     ]
 ]);
 
+export const straightBottomToTopRun2 = lineString([
+    [
+        3.0727386474609375,
+        50.63513168540744
+    ],
+    [
+        3.0729854106903076,
+        50.637016586876825
+    ]
+]);
+
 export const straightTopToBottomRun = lineString([
     [
         3.0714458227157593,
