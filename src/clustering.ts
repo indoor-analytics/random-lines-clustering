@@ -6,6 +6,7 @@ import {getClusteredIntersections} from "./intersectionsClustering/getClusteredI
 import {ClusteredIntersectionsLine} from "./intersectionsClustering/ClusteredIntersectionsLine";
 import {buildClusteredPaths} from "./buildClusteredPaths";
 import envelope from "@turf/envelope";
+import {InputPath} from "./inputPath/InputPath";
 
 /**
  * Clusters a bunch of paths using random-picked lines.
@@ -18,14 +19,16 @@ export function clusterPaths (
     // 1. Define a bounding box around input paths
     const zoneOfInterest: Feature<Polygon> = envelope(featureCollection(paths));
 
-    // TODO create class for input paths that can receive IntersectionsLine
-
     // 2. Draw random lines crossing the bounding box
     const randomLines: Feature<LineString>[] = computeRandomLines(zoneOfInterest);
 
+
+    const inputPaths: InputPath[] = paths.map((path) => {
+        return new InputPath(path);
+    });
+
     // 3. Mark all intersections with input paths
-    // TODO store intersection lines in input paths
-    const intersections: IntersectionsLine[] = getPathsIntersections(paths, randomLines);
+    const intersections: IntersectionsLine[] = getPathsIntersections(inputPaths, randomLines);
 
     // 4. Cluster intersections
     const clusteredIntersections: ClusteredIntersectionsLine[] = getClusteredIntersections(intersections);

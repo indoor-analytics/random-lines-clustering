@@ -4,6 +4,7 @@ import lineIntersect from "@turf/line-intersect";
 import lineSlice from "@turf/line-slice";
 import length from "@turf/length";
 import angle from "@turf/angle";
+import {InputPath} from "../inputPath/InputPath";
 
 
 /**
@@ -13,7 +14,7 @@ import angle from "@turf/angle";
  * @param randomLines
  */
 export function getPathsIntersections (
-    inputPaths: Feature<LineString>[],
+    inputPaths: InputPath[],
     randomLines: Feature<LineString>[]
 ): IntersectionsLine[] {
 
@@ -23,8 +24,8 @@ export function getPathsIntersections (
         const intersections: Feature<Point>[] = [];
 
         for (const inputPath of inputPaths) {
-            for (const localIntersection of lineIntersect(randomLine, inputPath).features) {
-                localIntersection.properties!.direction = getIntersectionDirection(inputPath, randomLine, localIntersection);
+            for (const localIntersection of lineIntersect(randomLine, inputPath.path).features) {
+                localIntersection.properties!.direction = getIntersectionDirection(inputPath.path, randomLine, localIntersection);
                 intersections.push( localIntersection );
             }
         }

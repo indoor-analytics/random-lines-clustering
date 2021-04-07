@@ -1,4 +1,5 @@
 import {lineString} from "@turf/helpers";
+import {InputPath} from "../../src/inputPath/InputPath";
 
 export const testRun = lineString([
     [
@@ -1336,7 +1337,7 @@ export const test4run = lineString([
     ]
 ]);
 
-export const mouaisRun = lineString([
+export const mouaisRun = new InputPath(lineString([
     [
         3.0739493673436185,
         50.63668340107364
@@ -1505,9 +1506,9 @@ export const mouaisRun = lineString([
         3.0734157628188785,
         50.635166236264965
     ]
-]);
+]));
 
-export const mouais2run = lineString([
+export const mouais2run = new InputPath(lineString([
     [
         3.0738144338036424,
         50.63669644052036
@@ -1732,7 +1733,7 @@ export const mouais2run = lineString([
         3.073361973448623,
         50.63517769650295
     ]
-]);
+]));
 
 export const mouais3run = lineString([
     [
@@ -2467,7 +2468,7 @@ export const straightTopToBottomRun = lineString([
     ]
 ]);
 
-export const slalomingAroundLineRun = lineString([
+export const slalomingAroundLineRun = new InputPath(lineString([
     [
         3.0709362030029297,
         50.63510106364048
@@ -2484,9 +2485,9 @@ export const slalomingAroundLineRun = lineString([
         3.0738437175750732,
         50.637071023341356
     ]
-]);
+]));
 
-export const notCrossingLineRun = lineString([
+export const notCrossingLineRun = new InputPath(lineString([
     [
         3.0719876289367676,
         50.636904311469664
@@ -2511,4 +2512,4 @@ export const notCrossingLineRun = lineString([
         3.0749648809432983,
         50.635087453959876
     ]
-]);
+]));
