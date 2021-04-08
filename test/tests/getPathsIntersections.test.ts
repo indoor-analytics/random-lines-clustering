@@ -33,7 +33,14 @@ describe ('getPathsIntersections', () => {
    it ('should build line intersecting random line several times', () => {
       const intersections = getPathsIntersections([slalomingAroundLineRun], [randomLine1]);
       const intersectLine = intersections[0];
-      expect(intersectLine.intersections.length).to.equal(3);
+      const intersectionPoints = intersectLine.intersections;
+      expect(intersectionPoints.length).to.equal(3);
+
+      // checking if input path has 3 times the same intersections line
+      expect(slalomingAroundLineRun.intersections.length).to.equal(3);
+      for (const intersectionsLine of slalomingAroundLineRun.intersections) {
+         expect(intersectionsLine.intersections).to.deep.equal(intersectionPoints);
+      }
 
       // checking directions
       const directionsMap: {[id: string]: number} = {};
