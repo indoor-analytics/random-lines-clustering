@@ -1,13 +1,13 @@
-import { IntersectionsLine } from "./IntersectionsLine";
 import { Feature, LineString, Point } from "@turf/helpers";
 import { InputPath } from "../inputPath/InputPath";
+import { IntersectionsMap } from "../intersectionsMap/IntersectionsMap";
 /**
  * Computes intersections between randomly-generated lines and input paths.
  *
  * @param inputPaths
  * @param randomLines
  */
-export declare function getPathsIntersections(inputPaths: InputPath[], randomLines: Feature<LineString>[]): IntersectionsLine[];
+export declare function getPathsIntersections(inputPaths: InputPath[], randomLines: Feature<LineString>[]): IntersectionsMap;
 /**
  * Returns a number identifying intersection direction.
  *

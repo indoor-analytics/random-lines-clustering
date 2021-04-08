@@ -1,9 +1,8 @@
-import {Feature, LineString} from "@turf/helpers";
-import {IntersectionsLine} from "../intersections/IntersectionsLine";
+import {Feature, LineString, Point} from "@turf/helpers";
 
 export class InputPath {
     public path: Feature<LineString>;
-    public intersections: IntersectionsLine[];
+    public intersections: Feature<Point>[];
 
     constructor (path: Feature<LineString>) {
         this.path = path;

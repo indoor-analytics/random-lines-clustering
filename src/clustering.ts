@@ -7,6 +7,7 @@ import {ClusteredIntersectionsLine} from "./intersectionsClustering/ClusteredInt
 import {buildClusteredPaths} from "./buildClusteredPaths";
 import envelope from "@turf/envelope";
 import {InputPath} from "./inputPath/InputPath";
+import {IntersectionsMap} from "./intersectionsMap/IntersectionsMap";
 
 /**
  * Clusters a bunch of paths using random-picked lines.
@@ -28,11 +29,11 @@ export function clusterPaths (
     });
 
     // 3. Mark all intersections with input paths
-    const intersections: IntersectionsLine[] = getPathsIntersections(inputPaths, randomLines);
+    const intersectionsMap: IntersectionsMap = getPathsIntersections(inputPaths, randomLines);
 
     // 4. Cluster intersections
-    const clusteredIntersections: ClusteredIntersectionsLine[] = getClusteredIntersections(intersections);
+    // const clusteredIntersections: ClusteredIntersectionsLine[] = getClusteredIntersections(intersections);
 
     // 5. Rebuild input paths using clustered intersections
-    return buildClusteredPaths(clusteredIntersections);
+    return []; // buildClusteredPaths(clusteredIntersections);
 }
