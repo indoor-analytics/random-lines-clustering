@@ -1,3 +1,4 @@
-import { ClusteredIntersectionsLine } from "./intersectionsClustering/ClusteredIntersectionsLine";
 import { Feature, LineString } from "@turf/helpers";
-export declare function buildClusteredPaths(clusteredIntersections: ClusteredIntersectionsLine[]): Feature<LineString>[];
+import { InputPath } from "./inputPath/InputPath";
+import { IntersectionsMap } from "./intersectionsMap/IntersectionsMap";
+export declare function buildClusteredPaths(inputPaths: InputPath[], intersectionsMap: IntersectionsMap): Feature<LineString>[];

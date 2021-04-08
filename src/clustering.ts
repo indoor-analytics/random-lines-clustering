@@ -1,13 +1,11 @@
 import {Feature, featureCollection, LineString, Polygon} from "@turf/helpers";
 import {computeRandomLines} from "./randomLines/computeRandomLines";
-import {IntersectionsLine} from "./intersections/IntersectionsLine";
 import {getPathsIntersections} from "./intersections/getPathsIntersections";
-import {getClusteredIntersections} from "./intersectionsClustering/getClusteredIntersections";
-import {ClusteredIntersectionsLine} from "./intersectionsClustering/ClusteredIntersectionsLine";
-import {buildClusteredPaths} from "./buildClusteredPaths";
 import envelope from "@turf/envelope";
 import {InputPath} from "./inputPath/InputPath";
 import {IntersectionsMap} from "./intersectionsMap/IntersectionsMap";
+import {clusterIntersections} from "./intersectionsClustering/clusterIntersections";
+import {buildClusteredPaths} from "./buildClusteredPaths";
 
 /**
  * Clusters a bunch of paths using random-picked lines.
@@ -35,8 +33,8 @@ export function clusterPaths (
     // TODO 4. Sort intersections for each input path
 
     // 4. Cluster intersections
-    // const clusteredIntersections: ClusteredIntersectionsLine[] = getClusteredIntersections(intersections);
+    const clusteredIntersectionsMap: IntersectionsMap = clusterIntersections(intersectionsMap);
 
     // 5. Rebuild input paths using clustered intersections
-    return []; // buildClusteredPaths(clusteredIntersections);
+    return buildClusteredPaths(inputPaths, clusteredIntersectionsMap);
 }
