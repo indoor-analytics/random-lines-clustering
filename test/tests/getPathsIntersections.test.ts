@@ -10,17 +10,18 @@ import {
 } from "../features/runs";
 import pointToLineDistance from "@turf/point-to-line-distance";
 import lineIntersect from "@turf/line-intersect";
+import {InputPath} from "../../src/inputPath/InputPath";
 
 describe ('getPathsIntersections', () => {
    it ('should build intersection line', () => {
-      const intersections = getPathsIntersections([mouaisRun, mouais2run], [randomLine1]);
+      const intersections = getPathsIntersections([new InputPath(mouaisRun), new InputPath(mouais2run)], [randomLine1]);
       expect(intersections.length).to.equal(1);
       expect(intersections[0].line).to.deep.equal(randomLine1);
    });
 
    // https://gist.github.com/Alystrasz/62137f60b8c45eb7cfd102ab675a63bb
    it ('should build line with correct intersections', () => {
-      const intersections = getPathsIntersections([mouaisRun, mouais2run], [randomLine1]);
+      const intersections = getPathsIntersections([new InputPath(mouaisRun), new InputPath(mouais2run)], [randomLine1]);
       const intersectLine = intersections[0];
 
       expect(intersectLine.intersections.length).to.equal(6);
@@ -31,14 +32,15 @@ describe ('getPathsIntersections', () => {
 
    // https://gist.github.com/Alystrasz/6ea1c20b0605cc0b482903b76cd5d716
    it ('should build line intersecting random line several times', () => {
-      const intersections = getPathsIntersections([slalomingAroundLineRun], [randomLine1]);
+      const inputPath = new InputPath(slalomingAroundLineRun);
+      const intersections = getPathsIntersections([inputPath], [randomLine1]);
       const intersectLine = intersections[0];
       const intersectionPoints = intersectLine.intersections;
       expect(intersectionPoints.length).to.equal(3);
 
       // checking if input path has 3 times the same intersections line
-      expect(slalomingAroundLineRun.intersections.length).to.equal(3);
-      for (const intersectionsLine of slalomingAroundLineRun.intersections) {
+      expect(inputPath.intersections.length).to.equal(3);
+      for (const intersectionsLine of inputPath.intersections) {
          expect(intersectionsLine.intersections).to.deep.equal(intersectionPoints);
       }
 
@@ -65,7 +67,7 @@ describe ('getPathsIntersections', () => {
 
    // https://gist.github.com/Alystrasz/d06ab9213e44534eced3ae23d461be85
    it ('should not get intersections for non-crossing paths', () => {
-      const intersections = getPathsIntersections([notCrossingLineRun], [randomLine1]);
+      const intersections = getPathsIntersections([new InputPath(notCrossingLineRun)], [randomLine1]);
       expect(intersections.length).to.equal(0);
    });
 });
