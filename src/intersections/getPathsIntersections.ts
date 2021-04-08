@@ -21,17 +21,18 @@ export function getPathsIntersections (
     const lines: IntersectionsLine[] = [];
 
     for (const randomLine of randomLines) {
-        const intersections: Feature<Point>[] = [];
+        const intersectionsLine: IntersectionsLine = new IntersectionsLine(randomLine, []);
 
         for (const inputPath of inputPaths) {
             for (const localIntersection of lineIntersect(randomLine, inputPath.path).features) {
                 localIntersection.properties!.direction = getIntersectionDirection(inputPath.path, randomLine, localIntersection);
-                intersections.push( localIntersection );
+                intersectionsLine.intersections.push( localIntersection );
+                inputPath.intersections.push()
             }
         }
 
-        if (intersections.length !== 0)
-            lines.push( new IntersectionsLine(randomLine, intersections) );
+        if (intersectionsLine.intersections.length !== 0)
+            lines.push( intersectionsLine );
     }
 
     return lines;
