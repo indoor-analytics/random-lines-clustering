@@ -31,6 +31,9 @@ export function clusterPaths (
     // 3. Mark all intersections with input paths
     const intersectionsMap: IntersectionsMap = getPathsIntersections(inputPaths, randomLines);
 
+
+    // TODO 4. Sort intersections for each input path
+
     // 4. Cluster intersections
     // const clusteredIntersections: ClusteredIntersectionsLine[] = getClusteredIntersections(intersections);
 
