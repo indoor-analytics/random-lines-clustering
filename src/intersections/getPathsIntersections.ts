@@ -1,4 +1,4 @@
-import {IntersectionsLine} from "./IntersectionsLine";
+import {RandomLine} from "../randomLine/RandomLine";
 import {Feature, LineString, Point} from "@turf/helpers";
 import lineIntersect from "@turf/line-intersect";
 import lineSlice from "@turf/line-slice";
@@ -16,21 +16,19 @@ import {IntersectionsMap} from "../intersectionsMap/IntersectionsMap";
  */
 export function getPathsIntersections (
     inputPaths: InputPath[],
-    randomLines: Feature<LineString>[]
+    randomLines: RandomLine[]
 ): IntersectionsMap {
 
     const map = new IntersectionsMap();
 
     for (const randomLine of randomLines) {
-        const intersectionsLine: IntersectionsLine = new IntersectionsLine(randomLine, []);
-
         for (const inputPath of inputPaths) {
-            for (const localIntersection of lineIntersect(randomLine, inputPath.path).features) {
-                localIntersection.properties!.direction = getIntersectionDirection(inputPath.path, randomLine, localIntersection);
-                intersectionsLine.intersections.push( localIntersection );
+            for (const localIntersection of lineIntersect(randomLine.line, inputPath.path).features) {
+                localIntersection.properties!.direction = getIntersectionDirection(inputPath.path, randomLine.line, localIntersection);
+                randomLine.intersections.push( localIntersection );
                 inputPath.intersections.push( localIntersection );
 
-                map.setLine(localIntersection, intersectionsLine);
+                map.setLine(localIntersection, randomLine);
             }
         }
     }

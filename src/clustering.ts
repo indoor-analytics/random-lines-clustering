@@ -1,11 +1,12 @@
 import {Feature, featureCollection, LineString, Polygon} from "@turf/helpers";
-import {computeRandomLines} from "./randomLines/computeRandomLines";
+import {computeRandomLines} from "./computeRandomLines/computeRandomLines";
 import {getPathsIntersections} from "./intersections/getPathsIntersections";
 import envelope from "@turf/envelope";
 import {InputPath} from "./inputPath/InputPath";
 import {IntersectionsMap} from "./intersectionsMap/IntersectionsMap";
 import {clusterIntersections} from "./intersectionsClustering/clusterIntersections";
 import {buildClusteredPaths} from "./buildClusteredPaths";
+import {RandomLine} from "./randomLine/RandomLine";
 
 /**
  * Clusters a bunch of paths using random-picked lines.
@@ -19,7 +20,7 @@ export function clusterPaths (
     const zoneOfInterest: Feature<Polygon> = envelope(featureCollection(paths));
 
     // 2. Draw random lines crossing the bounding box
-    const randomLines: Feature<LineString>[] = computeRandomLines(zoneOfInterest);
+    const randomLines: RandomLine[] = computeRandomLines(zoneOfInterest);
 
 
     const inputPaths: InputPath[] = paths.map((path) => {

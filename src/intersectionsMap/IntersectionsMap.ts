@@ -1,4 +1,4 @@
-import {IntersectionsLine} from "../intersections/IntersectionsLine";
+import {RandomLine} from "../randomLine/RandomLine";
 import {Feature, Point} from "@turf/helpers";
 
 /**
@@ -6,17 +6,17 @@ import {Feature, Point} from "@turf/helpers";
  * Several intersections can lead to the same line.
  */
 export class IntersectionsMap {
-    private readonly _map: {[intersectionId: string]: IntersectionsLine};
+    private readonly _map: {[intersectionId: string]: RandomLine};
 
     constructor () {
         this._map = {};
     }
 
-    public setLine (intersection: Feature<Point>, line: IntersectionsLine): void {
+    public setLine (intersection: Feature<Point>, line: RandomLine): void {
         this._map[JSON.stringify(intersection)] = line;
     }
 
-    public getLine (intersection: Feature<Point>): IntersectionsLine {
+    public getLine (intersection: Feature<Point>): RandomLine {
         return this._map[JSON.stringify(intersection)];
     }
 
@@ -24,7 +24,7 @@ export class IntersectionsMap {
         return Object.keys(this._map);
     }
 
-    public getAllIntersectionLines (): IntersectionsLine[] {
+    public getAllIntersectionLines (): RandomLine[] {
         return Object.values(this._map);
     }
 }

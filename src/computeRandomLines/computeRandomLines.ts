@@ -8,6 +8,7 @@ import {polygonToLine} from "@turf/polygon-to-line";
 import length from "@turf/length";
 import along from "@turf/along";
 import lineSlice from "@turf/line-slice";
+import {RandomLine} from "../randomLine/RandomLine";
 const randomSeedGenerator = require('random-seed');
 
 
@@ -21,9 +22,9 @@ const randomSeedGenerator = require('random-seed');
 export function computeRandomLines (
     area: Feature<Polygon>,
     options: Partial<ComputeRandomLinesOptions> = COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS
-): Feature<LineString>[] {
+): RandomLine[] {
     const allOptions = getComputeRandomLinesOptions(options);
-    const lines: Feature<LineString>[] = [];
+    const lines: RandomLine[] = [];
     const randomGenerator = randomSeedGenerator.create(allOptions.seedGenerator!());
 
     const areaPerimeter = polygonToLine(area);
@@ -45,10 +46,13 @@ export function computeRandomLines (
             secondPosition = getRandomPositionAlongPerimeter();
 
         lines.push(
-            lineString([
-                firstPosition.geometry.coordinates,
-                secondPosition.geometry.coordinates
-            ])
+            new RandomLine(
+                lineString([
+                    firstPosition.geometry.coordinates,
+                    secondPosition.geometry.coordinates
+                ]),
+                []
+            )
         );
     }
 

@@ -1,4 +1,4 @@
-import { IntersectionsLine } from "../intersections/IntersectionsLine";
+import { RandomLine } from "../randomLine/RandomLine";
 import { Feature, Point } from "@turf/helpers";
 /**
  * Allows program to link an intersection position to the linked intersections line.
@@ -7,8 +7,8 @@ import { Feature, Point } from "@turf/helpers";
 export declare class IntersectionsMap {
     private readonly _map;
     constructor();
-    setLine(intersection: Feature<Point>, line: IntersectionsLine): void;
-    getLine(intersection: Feature<Point>): IntersectionsLine;
+    setLine(intersection: Feature<Point>, line: RandomLine): void;
+    getLine(intersection: Feature<Point>): RandomLine;
     getKeys(): string[];
-    getAllIntersectionLines(): IntersectionsLine[];
+    getAllIntersectionLines(): RandomLine[];
 }

@@ -1,5 +1,6 @@
-import { Feature, LineString, Polygon } from "@turf/helpers";
+import { Feature, Polygon } from "@turf/helpers";
 import { ComputeRandomLinesOptions } from "./ComputeRandomLinesOptions";
+import { RandomLine } from "../randomLine/RandomLine";
 /**
  * Generates random segments crossing a zone of interest.
  * Each segment's vertex is located on the ZOI's perimeter, but both cannot belong to the same ZOI's edge.
@@ -7,4 +8,4 @@ import { ComputeRandomLinesOptions } from "./ComputeRandomLinesOptions";
  * @param area zone of interest
  * @param options options to customize lines generation
  */
-export declare function computeRandomLines(area: Feature<Polygon>, options?: Partial<ComputeRandomLinesOptions>): Feature<LineString>[];
+export declare function computeRandomLines(area: Feature<Polygon>, options?: Partial<ComputeRandomLinesOptions>): RandomLine[];

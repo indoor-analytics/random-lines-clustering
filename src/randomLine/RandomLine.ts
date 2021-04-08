@@ -1,6 +1,6 @@
 import {Feature, LineString, Point} from "@turf/helpers";
 
-export class IntersectionsLine {
+export class RandomLine {
     line: Feature<LineString>;
     intersections: Feature<Point>[];
 
