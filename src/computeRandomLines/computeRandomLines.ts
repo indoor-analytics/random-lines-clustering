@@ -50,8 +50,7 @@ export function computeRandomLines (
                 lineString([
                     firstPosition.geometry.coordinates,
                     secondPosition.geometry.coordinates
-                ]),
-                []
+                ])
             )
         );
     }

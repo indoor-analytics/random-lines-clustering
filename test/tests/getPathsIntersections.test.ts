@@ -15,27 +15,27 @@ import {RandomLine} from "../../src/randomLine/RandomLine";
 
 describe ('getPathsIntersections', () => {
    it ('should build intersection line', () => {
-      const intersectionsMap = getPathsIntersections([new InputPath(mouaisRun), new InputPath(mouais2run)], [new RandomLine(randomLine1, [])]);
+      const intersectionsMap = getPathsIntersections([new InputPath(mouaisRun), new InputPath(mouais2run)], [new RandomLine(randomLine1)]);
       expect(intersectionsMap.getAllIntersectionLines().length).to.equal(6);
-      expect(intersectionsMap.getAllIntersectionLines()[0].line).to.deep.equal(randomLine1);
+      expect(intersectionsMap.getAllIntersectionLines()[0].path).to.deep.equal(randomLine1);
    });
 
    // https://gist.github.com/Alystrasz/62137f60b8c45eb7cfd102ab675a63bb
    it ('should build line with correct intersections', () => {
-      const intersectionsMap = getPathsIntersections([new InputPath(mouaisRun), new InputPath(mouais2run)], [new RandomLine(randomLine1, [])]);
+      const intersectionsMap = getPathsIntersections([new InputPath(mouaisRun), new InputPath(mouais2run)], [new RandomLine(randomLine1)]);
       const allIntersectionLines = intersectionsMap.getAllIntersectionLines();
       const intersectLine = allIntersectionLines[0];
 
       expect(intersectLine.intersections.length).to.equal(6);
 
       for (const intersection of intersectLine.intersections)
-         expect(pointToLineDistance(intersection, intersectLine.line)).to.be.approximately(0, 0.000000001);
+         expect(pointToLineDistance(intersection, intersectLine.path)).to.be.approximately(0, 0.000000001);
    });
 
    // https://gist.github.com/Alystrasz/6ea1c20b0605cc0b482903b76cd5d716
    it ('should build line intersecting random line several times', () => {
       const inputPath = new InputPath(slalomingAroundLineRun);
-      const intersectionsMap = getPathsIntersections([inputPath], [new RandomLine(randomLine1, [])]);
+      const intersectionsMap = getPathsIntersections([inputPath], [new RandomLine(randomLine1)]);
 
       // checking if input path has 3 intersections
       expect(inputPath.intersections.length).to.equal(3);
@@ -69,7 +69,7 @@ describe ('getPathsIntersections', () => {
 
    // https://gist.github.com/Alystrasz/d06ab9213e44534eced3ae23d461be85
    it ('should not get intersections for non-crossing paths', () => {
-      const intersections = getPathsIntersections([new InputPath(notCrossingLineRun)], [new RandomLine(randomLine1, [])]);
+      const intersections = getPathsIntersections([new InputPath(notCrossingLineRun)], [new RandomLine(randomLine1)]);
       expect(intersections.getKeys().length).to.equal(0);
    });
 });

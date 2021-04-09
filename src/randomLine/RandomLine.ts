@@ -5,10 +5,9 @@ export class RandomLine {
     intersections: Feature<Point>[];
 
     constructor (
-        line: Feature<LineString>,
-        intersections: Feature<Point>[]     // TODO delete this
+        line: Feature<LineString>
     ) {
         this.path = line;
-        this.intersections = intersections;
+        this.intersections = [];
     }
 }

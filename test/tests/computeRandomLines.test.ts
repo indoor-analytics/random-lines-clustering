@@ -11,7 +11,7 @@ describe ('computeRandomLines', () => {
     it ('should compute lines which contain two positions each', () => {
         const lines = computeRandomLines(actualFlandersRailway);
         for (const line of lines)
-            expect(line.line.geometry.coordinates.length).to.equal(2);
+            expect(line.path.geometry.coordinates.length).to.equal(2);
     });
 
     it ('should compute lines whose coordinates belong to area perimeter', () => {
@@ -19,9 +19,9 @@ describe ('computeRandomLines', () => {
         const perimeter = polygonToLine(actualFlandersRailway) as Feature<LineString>;
 
         for (const line of lines) {
-            const p1DistanceToPerimeter = pointToLineDistance(line.line.geometry.coordinates[0], perimeter);
+            const p1DistanceToPerimeter = pointToLineDistance(line.path.geometry.coordinates[0], perimeter);
             expect(p1DistanceToPerimeter).to.be.approximately(0, 0.00001);
-            const p2DistanceToPerimeter = pointToLineDistance(line.line.geometry.coordinates[1], perimeter);
+            const p2DistanceToPerimeter = pointToLineDistance(line.path.geometry.coordinates[1], perimeter);
             expect(p2DistanceToPerimeter).to.be.approximately(0, 0.00001);
         }
     });
@@ -37,7 +37,7 @@ describe ('computeRandomLines options companion object', () => {
         const linesCount = 1;
         const lines = computeRandomLines(actualFlandersRailway, {linesCount});
         expect(lines.length).to.equal(linesCount);
-        printCollectionToFile(featureCollection((lines.map(line => line.line))));
+        printCollectionToFile(featureCollection((lines.map(line => line.path))));
     });
 
     it ('should produce 42 lines', () => {
