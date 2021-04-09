@@ -1,5 +1,5 @@
 import {InputPath} from "../../src/inputPath/InputPath";
-import {mouaisRun} from "../features/runs";
+import {mouaisRun, slalomingAroundLineRun} from "../features/runs";
 import { expect } from "chai";
 import {point} from "@turf/helpers";
 
@@ -33,6 +33,42 @@ describe ('InputPath class', () => {
             expect(intersections).to.include(firstIntersection);
             expect(intersections).to.include(secondIntersection);
             expect(intersections).to.include(thirdIntersection);
+        });
+
+        // https://gist.github.com/Alystrasz/5981756a43a5ed8f7bd1b4dd740922ce
+        it ('should sort intersections by covered path distance', () => {
+            const inputPath = new InputPath(slalomingAroundLineRun);
+
+            // first (red) random line intersections
+            const firstIntersection = point([3.0718652531504627, 50.63595952881145]);
+            const fourthIntersection = point([3.0721934884786606, 50.63584023349955]);
+            const fifthIntersection = point([3.072478473186493, 50.63573688651399]);
+
+            // second (blue) random line intersections
+            const secondIntersection = point([3.0720503255724907, 50.63613049696586]);
+            const thirdIntersection = point([3.0721187219023705, 50.63610923230391]);
+            const sixthIntersection = point([3.072680979967117, 50.635934861712954]);
+
+
+            // adding first line intersections at once
+            inputPath.addIntersection(firstIntersection);
+            inputPath.addIntersection(fourthIntersection);
+            inputPath.addIntersection(fifthIntersection);
+
+            // adding second line intersections at once
+            inputPath.addIntersection(secondIntersection);
+            inputPath.addIntersection(thirdIntersection);
+            inputPath.addIntersection(sixthIntersection);
+
+
+            // checking intersections order
+            const intersections = inputPath.getIntersections();
+            expect(intersections[0]).to.deep.equal(firstIntersection);
+            expect(intersections[1]).to.deep.equal(secondIntersection);
+            expect(intersections[2]).to.deep.equal(thirdIntersection);
+            expect(intersections[3]).to.deep.equal(fourthIntersection);
+            expect(intersections[4]).to.deep.equal(fifthIntersection);
+            expect(intersections[5]).to.deep.equal(sixthIntersection);
         });
     });
 });
