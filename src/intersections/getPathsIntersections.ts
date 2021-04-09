@@ -23,8 +23,8 @@ export function getPathsIntersections (
 
     for (const randomLine of randomLines) {
         for (const inputPath of inputPaths) {
-            for (const localIntersection of lineIntersect(randomLine.line, inputPath.path).features) {
-                localIntersection.properties!.direction = getIntersectionDirection(inputPath.path, randomLine.line, localIntersection);
+            for (const localIntersection of lineIntersect(randomLine.path, inputPath.path).features) {
+                localIntersection.properties!.direction = getIntersectionDirection(inputPath.path, randomLine.path, localIntersection);
                 randomLine.intersections.push( localIntersection );
                 inputPath.intersections.push( localIntersection );
 
