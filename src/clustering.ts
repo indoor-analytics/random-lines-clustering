@@ -16,22 +16,20 @@ import {RandomLine} from "./randomLine/RandomLine";
 export function clusterPaths (
     paths: Feature<LineString>[]
 ): Feature<LineString>[] {
+
+    const inputPaths: InputPath[] = paths.map((path) => {
+        return new InputPath(path);
+    });
+
+
     // 1. Define a bounding box around input paths
     const zoneOfInterest: Feature<Polygon> = envelope(featureCollection(paths));
 
     // 2. Draw random lines crossing the bounding box
     const randomLines: RandomLine[] = computeRandomLines(zoneOfInterest);
 
-
-    const inputPaths: InputPath[] = paths.map((path) => {
-        return new InputPath(path);
-    });
-
     // 3. Mark all intersections with input paths
     const intersectionsMap: IntersectionsMap = getPathsIntersections(inputPaths, randomLines);
-
-
-    // TODO 4. Sort intersections for each input path
 
     // 4. Cluster intersections
     const clusteredIntersectionsMap: IntersectionsMap = clusterIntersections(intersectionsMap);
