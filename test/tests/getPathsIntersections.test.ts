@@ -1,5 +1,5 @@
 import {getIntersectionDirection, getPathsIntersections} from "../../src/intersections/getPathsIntersections";
-import {randomLine1} from "../features/lines";
+import {randomLine1, randomLine2} from "../features/lines";
 import { expect } from "chai";
 import {
    mouais2run,
@@ -78,6 +78,21 @@ describe ('getPathsIntersections', () => {
    it ('should not get intersections for non-crossing paths', () => {
       const intersections = getPathsIntersections([new InputPath(notCrossingLineRun)], [new RandomLine(randomLine1)]);
       expect(intersections.getKeys().length).to.equal(0);
+   });
+
+   // https://gist.github.com/Alystrasz/1b7b28570df470c3bca899c3152b5b14
+   it ('should return a map containing 6 intersections, referring to 2 random lines', () => {
+      const intersectionsMap = getPathsIntersections(
+          [new InputPath(slalomingAroundLineRun)],
+          [new RandomLine(randomLine1), new RandomLine(randomLine2)]
+      );
+      expect(intersectionsMap.getKeys().length).to.equal(6);
+
+      const values = intersectionsMap.getAllIntersectionLines()
+          .map((line) => JSON.stringify(line));
+      const uniqueValues = values.filter((item, index) => values.indexOf(item) === index);
+
+      expect(uniqueValues.length).to.equal(2);
    });
 });
 
