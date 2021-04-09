@@ -1,7 +1,7 @@
 import { Feature, LineString, Point } from "@turf/helpers";
 /**
  * This represents an input path.
- * The intersections field is filled by the getPathsIntersections.
+ * The intersections field is filled by the getPathsIntersections method.
  */
 export declare class InputPath {
     path: Feature<LineString>;

@@ -5,13 +5,13 @@ import envelope from "@turf/envelope";
 import {InputPath} from "./inputPath/InputPath";
 import {IntersectionsMap} from "./intersectionsMap/IntersectionsMap";
 import {clusterIntersections} from "./intersectionsClustering/clusterIntersections";
-import {buildClusteredPaths} from "./buildClusteredPaths";
 import {RandomLine} from "./randomLine/RandomLine";
+import {buildClusteredPaths} from "./buildClusteredPaths/buildClusteredPaths";
 
 /**
  * Clusters a bunch of paths using random-picked lines.
  *
- * @param paths input paths
+ * @param paths paths to cluster
  */
 export function clusterPaths (
     paths: Feature<LineString>[]
