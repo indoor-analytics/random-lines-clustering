@@ -6,12 +6,13 @@ import {Feature, LineString, Point} from "@turf/helpers";
  */
 export class InputPath {
     public path: Feature<LineString>;
-    private _intersections: Feature<Point>[];
+    private readonly _intersections: Feature<Point>[];
 
     constructor (path: Feature<LineString>) {
         this.path = path;
         this._intersections = [];
     }
+
 
     /**
      * Adds a new path intersection to the local list of intersections.
@@ -21,5 +22,13 @@ export class InputPath {
      */
     public addIntersection ( point: Feature<Point> ): void {
         this._intersections.push(point);
+    }
+
+
+    /**
+     * Returns the intersections list for the current input path.
+     */
+    public getIntersections (): Feature<Point>[] {
+        return this._intersections;
     }
 }

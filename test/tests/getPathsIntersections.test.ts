@@ -35,11 +35,11 @@ describe ('getPathsIntersections', () => {
    // https://gist.github.com/Alystrasz/6ea1c20b0605cc0b482903b76cd5d716
    it ("should populate input path's intersections", () => {
       const inputPath = new InputPath(slalomingAroundLineRun);
-      expect(inputPath.intersections.length).to.equal(0);
+      expect(inputPath.getIntersections().length).to.equal(0);
 
       getPathsIntersections([inputPath], [new RandomLine(randomLine1)]);
 
-      expect(inputPath.intersections.length).to.equal(3);
+      expect(inputPath.getIntersections().length).to.equal(3);
    });
 
    // https://gist.github.com/Alystrasz/6ea1c20b0605cc0b482903b76cd5d716
@@ -48,8 +48,8 @@ describe ('getPathsIntersections', () => {
       const intersectionsMap = getPathsIntersections([inputPath], [new RandomLine(randomLine1)]);
 
       // checking if each intersection leads to the same intersections line
-      const intersectLine = intersectionsMap.getLine(inputPath.intersections[0]);
-      for (const intersectionPoint of inputPath.intersections) {
+      const intersectLine = intersectionsMap.getLine(inputPath.getIntersections()[0]);
+      for (const intersectionPoint of inputPath.getIntersections()) {
          expect(intersectionsMap.getLine(intersectionPoint)).to.deep.equal(intersectLine);
       }
 
