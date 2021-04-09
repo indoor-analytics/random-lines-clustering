@@ -2,8 +2,9 @@ import {RandomLine} from "../randomLine/RandomLine";
 import {Feature, Point} from "@turf/helpers";
 
 /**
- * Allows program to link an intersection position to the linked intersections line.
- * Several intersections can lead to the same line.
+ * Links an intersection position to an intersections line.
+ * As a random line can have several intersections with an input path, several intersections
+ * (map keys) can lead to the same line.
  */
 export class IntersectionsMap {
     private readonly _map: {[intersectionId: string]: RandomLine};

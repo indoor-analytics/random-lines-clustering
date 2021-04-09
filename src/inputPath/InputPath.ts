@@ -4,7 +4,7 @@ import lineSlice from "@turf/line-slice";
 
 /**
  * This represents an input path.
- * The intersections field is filled by the getPathsIntersections.
+ * The intersections field is filled by the getPathsIntersections method.
  */
 export class InputPath {
     public path: Feature<LineString>;
