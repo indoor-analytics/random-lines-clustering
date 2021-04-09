@@ -26,7 +26,7 @@ export function getPathsIntersections (
             for (const localIntersection of lineIntersect(randomLine.path, inputPath.path).features) {
                 localIntersection.properties!.direction = getIntersectionDirection(inputPath.path, randomLine.path, localIntersection);
                 randomLine.intersections.push( localIntersection );
-                inputPath.intersections.push( localIntersection );
+                inputPath.addIntersection( localIntersection );
 
                 map.setLine(localIntersection, randomLine);
             }

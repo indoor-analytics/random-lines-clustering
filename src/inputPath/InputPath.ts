@@ -6,10 +6,20 @@ import {Feature, LineString, Point} from "@turf/helpers";
  */
 export class InputPath {
     public path: Feature<LineString>;
-    public intersections: Feature<Point>[];
+    private _intersections: Feature<Point>[];
 
     constructor (path: Feature<LineString>) {
         this.path = path;
-        this.intersections = [];
+        this._intersections = [];
+    }
+
+    /**
+     * Adds a new path intersection to the local list of intersections.
+     * When added, it sorts the list of intersections by distance from the path origin.
+     *
+     * @param point new input path intersection
+     */
+    public addIntersection ( point: Feature<Point> ): void {
+        this._intersections.push(point);
     }
 }
