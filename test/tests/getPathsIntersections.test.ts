@@ -33,12 +33,19 @@ describe ('getPathsIntersections', () => {
    });
 
    // https://gist.github.com/Alystrasz/6ea1c20b0605cc0b482903b76cd5d716
+   it ("should populate input path's intersections", () => {
+      const inputPath = new InputPath(slalomingAroundLineRun);
+      expect(inputPath.intersections.length).to.equal(0);
+
+      getPathsIntersections([inputPath], [new RandomLine(randomLine1)]);
+
+      expect(inputPath.intersections.length).to.equal(3);
+   });
+
+   // https://gist.github.com/Alystrasz/6ea1c20b0605cc0b482903b76cd5d716
    it ('should build line intersecting random line several times', () => {
       const inputPath = new InputPath(slalomingAroundLineRun);
       const intersectionsMap = getPathsIntersections([inputPath], [new RandomLine(randomLine1)]);
-
-      // checking if input path has 3 intersections
-      expect(inputPath.intersections.length).to.equal(3);
 
       // checking if each intersection leads to the same intersections line
       const intersectLine = intersectionsMap.getLine(inputPath.intersections[0]);
