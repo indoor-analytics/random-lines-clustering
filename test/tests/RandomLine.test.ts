@@ -37,6 +37,16 @@ describe ('RandomLine class', () => {
             ).to.throw(RangeError, 'Input point must be a random line intersection.');
         });
 
+        it ("should throw error if no clustered point is mapped (= if the clustering algorithm hasn't been applied yet)", () => {
+            const line = new RandomLine(slalomingAroundLineRun);
+            const linePoint = point([3.072277307510376, 50.635539973727376]);
+            line.intersections = [linePoint];
+
+            expect(
+                () => line.getClusteredIntersection(linePoint)
+            ).to.throw(RangeError, 'Input point has no associated clustered position.');
+        });
+
         it ('should retrieve associated intersection', () => {
             const line = new RandomLine(slalomingAroundLineRun);
             const linePoint = point([3.072277307510376, 50.635539973727376]);
