@@ -11,4 +11,16 @@ export declare class RandomLine {
         [pointId: string]: Feature<Point>;
     };
     constructor(line: Feature<LineString>);
+    /**
+     * Returns intersection associated to a given path point.
+     * @param point intersection with path point
+     */
+    getClusteredIntersection(point: Feature<Point>): Feature<Point>;
+    /**
+     * Allows clusterIntersections method to set intersections map for the current random line.
+     * @param map
+     */
+    setClusteredIntersections(map: {
+        [pointId: string]: Feature<Point>;
+    }): void;
 }

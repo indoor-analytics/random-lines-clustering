@@ -17,4 +17,23 @@ export class RandomLine {
         this.intersections = [];
         this.clusteredIntersections = {};
     }
+
+
+    /**
+     * Returns intersection associated to a given path point.
+     * @param point intersection with path point
+     */
+    public getClusteredIntersection (
+        point: Feature<Point>
+    ) : Feature<Point> {
+        return point;
+    }
+
+    /**
+     * Allows clusterIntersections method to set intersections map for the current random line.
+     * @param map
+     */
+    public setClusteredIntersections (
+        map: {[pointId: string]: Feature<Point>}
+    ): void { }
 }
