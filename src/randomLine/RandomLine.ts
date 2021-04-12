@@ -34,7 +34,12 @@ export class RandomLine {
             throw new RangeError("Input point must be a random line intersection.");
 
         const key = JSON.stringify(point);
-        return this.clusteredIntersections[key];
+        const associatedClusteredPosition = this.clusteredIntersections[key];
+
+        if (!associatedClusteredPosition)
+            throw new RangeError('Input point has no associated clustered position.');
+
+        return associatedClusteredPosition;
     }
 
     /**
