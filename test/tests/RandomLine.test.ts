@@ -40,11 +40,12 @@ describe ('RandomLine class', () => {
         it ('should retrieve associated intersection', () => {
             const line = new RandomLine(slalomingAroundLineRun);
             const linePoint = point([3.072277307510376, 50.635539973727376]);
-            const associatedClusteredPoint = point([3.08443132164, 50.636254841615]);
-            line.setClusteredIntersection([linePoint], associatedClusteredPoint);
+            line.intersections = [linePoint];
+            const clusteredPoint = point([3.08443132164, 50.636254841615]);
+            line.setClusteredIntersection([linePoint], clusteredPoint);
 
-            const clusteredPoint = line.getClusteredIntersection(linePoint);
-            expect(clusteredPoint).to.deep.equal(associatedClusteredPoint);
+            const associatedClusteredPoint = line.getClusteredIntersection(linePoint);
+            expect(associatedClusteredPoint).to.deep.equal(clusteredPoint);
         });
     });
 
