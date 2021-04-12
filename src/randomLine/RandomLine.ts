@@ -37,10 +37,12 @@ export class RandomLine {
     }
 
     /**
-     * Allows clusterIntersections method to set intersections map for the current random line.
-     * @param map
+     * Allows clusterIntersections method to set intersections entries for the current random line.
+     * @param intersections array of positions to associate to the new clustered position
+     * @param associatedClusteredPoint position to associate to a number of line points
      */
-    public setClusteredIntersections (
-        map: {[pointId: string]: Feature<Point>}
+    public setClusteredIntersection (
+        intersections: Feature<Point>[],
+        associatedClusteredPoint: Feature<Point>
     ): void { }
 }
