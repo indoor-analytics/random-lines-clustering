@@ -26,6 +26,7 @@ export class RandomLine {
     public getClusteredIntersection (
         point: Feature<Point>
     ) : Feature<Point> {
+        throw new RangeError("Input point must belong to random line.");
         return point;
     }
 
