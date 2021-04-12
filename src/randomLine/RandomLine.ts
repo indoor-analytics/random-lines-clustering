@@ -33,7 +33,8 @@ export class RandomLine {
         if (!this.intersections.includes(point))
             throw new RangeError("Input point must be a random line intersection.");
 
-        return point;
+        const key = JSON.stringify(point);
+        return this.clusteredIntersections[key];
     }
 
     /**
@@ -44,5 +45,10 @@ export class RandomLine {
     public setClusteredIntersection (
         intersections: Feature<Point>[],
         associatedClusteredPoint: Feature<Point>
-    ): void { }
+    ): void {
+        for (const intersection of intersections) {
+            const key = JSON.stringify(intersection);
+            this.clusteredIntersections[key] = associatedClusteredPoint;
+        }
+    }
 }
