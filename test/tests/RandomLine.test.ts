@@ -47,4 +47,24 @@ describe ('RandomLine class', () => {
             expect(clusteredPoint).to.deep.equal(associatedClusteredPoint);
         });
     });
+
+    describe ('set clustered intersection', () => {
+        it ('should associate several intersections to a same position', () => {
+            const line = new RandomLine(slalomingAroundLineRun);
+            const linePoints = [
+                point([3.072277307510376, 50.635539973727376]),
+                point([3.072100281715393, 50.63617621595648]),
+                point([3.0738437175750732, 50.637071023341356])
+            ];
+            line.intersections = linePoints;    // setting up line's intersections list
+            const clusteredPoint = point([3.08418432164, 50.64821612415]);
+
+            line.setClusteredIntersection(linePoints, clusteredPoint);
+
+            for (const linePoint of linePoints) {
+                const associatedClusteredPoint = line.getClusteredIntersection(linePoint);
+                expect(associatedClusteredPoint).to.deep.equal(clusteredPoint);
+            }
+        });
+    });
 });
