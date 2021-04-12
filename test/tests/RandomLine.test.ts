@@ -36,5 +36,15 @@ describe ('RandomLine class', () => {
                 () => line.getClusteredIntersection(linePoint)
             ).to.throw(RangeError, 'Input point must be a random line intersection.');
         });
+
+        it ('should retrieve associated intersection', () => {
+            const line = new RandomLine(slalomingAroundLineRun);
+            const linePoint = point([3.072277307510376, 50.635539973727376]);
+            const associatedClusteredPoint = point([3.08443132164, 50.636254841615]);
+            line.setClusteredIntersection([linePoint], associatedClusteredPoint);
+
+            const clusteredPoint = line.getClusteredIntersection(linePoint);
+            expect(clusteredPoint).to.deep.equal(associatedClusteredPoint);
+        });
     });
 });
