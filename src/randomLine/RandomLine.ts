@@ -1,4 +1,5 @@
 import {Feature, LineString, Point} from "@turf/helpers";
+import pointToLineDistance from "@turf/point-to-line-distance";
 
 /**
  * Represents randomly-generated lines that cross the zone of interest.
@@ -26,7 +27,12 @@ export class RandomLine {
     public getClusteredIntersection (
         point: Feature<Point>
     ) : Feature<Point> {
-        throw new RangeError("Input point must belong to random line.");
+        if (pointToLineDistance(point, this.path) > 1)
+            throw new RangeError("Input point must belong to random line.");
+
+        if (!this.intersections.includes(point))
+            throw new RangeError("Input point must be a random line intersection.");
+
         return point;
     }
 
