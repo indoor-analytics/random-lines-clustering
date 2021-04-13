@@ -7,14 +7,17 @@ import {IntersectionsMap} from "./intersectionsMap/IntersectionsMap";
 import {clusterIntersections} from "./intersectionsClustering/clusterIntersections";
 import {RandomLine} from "./randomLine/RandomLine";
 import {buildClusteredPaths} from "./buildClusteredPaths/buildClusteredPaths";
+import {KDELineClustering} from "./intersectionsClustering/KDELineClustering";
 
 /**
  * Clusters a bunch of paths using random-picked lines.
  *
  * @param paths paths to cluster
+ * @param clusteringMethod function used to cluster intersections for a given random line
  */
 export function clusterPaths (
-    paths: Feature<LineString>[]
+    paths: Feature<LineString>[],
+    clusteringMethod: (line: RandomLine) => void = KDELineClustering
 ): Feature<LineString>[] {
 
     const inputPaths: InputPath[] = paths.map((path) => {
@@ -32,7 +35,7 @@ export function clusterPaths (
     const intersectionsMap: IntersectionsMap = getPathsIntersections(inputPaths, randomLines);
 
     // 4. Cluster intersections
-    const clusteredIntersectionsMap: IntersectionsMap = clusterIntersections(intersectionsMap);
+    const clusteredIntersectionsMap: IntersectionsMap = clusterIntersections(intersectionsMap, clusteringMethod);
 
     // 5. Rebuild input paths using clustered intersections
     return buildClusteredPaths(inputPaths, clusteredIntersectionsMap);

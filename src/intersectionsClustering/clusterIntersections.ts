@@ -1,11 +1,13 @@
 import {IntersectionsMap} from "../intersectionsMap/IntersectionsMap";
+import {RandomLine} from "../randomLine/RandomLine";
 
 export function clusterIntersections (
-    map: IntersectionsMap
+    map: IntersectionsMap,
+    clusteringMethod: (line: RandomLine) => void
 ): IntersectionsMap {
 
     for (const randomLine of map.getAllIntersectionLines()) {
-        // TODO cluster line
+        clusteringMethod(randomLine);
     }
 
     return map;

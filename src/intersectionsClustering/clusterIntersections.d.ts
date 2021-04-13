@@ -1,2 +1,3 @@
 import { IntersectionsMap } from "../intersectionsMap/IntersectionsMap";
-export declare function clusterIntersections(map: IntersectionsMap): IntersectionsMap;
+import { RandomLine } from "../randomLine/RandomLine";
+export declare function clusterIntersections(map: IntersectionsMap, clusteringMethod: (line: RandomLine) => void): IntersectionsMap;
