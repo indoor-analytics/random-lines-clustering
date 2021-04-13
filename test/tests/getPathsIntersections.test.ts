@@ -26,9 +26,9 @@ describe ('getPathsIntersections', () => {
       const allIntersectionLines = intersectionsMap.getAllIntersectionLines();
       const intersectLine = allIntersectionLines[0];
 
-      expect(intersectLine.intersections.length).to.equal(6);
+      expect(intersectLine.getIntersectionsList().length).to.equal(6);
 
-      for (const intersection of intersectLine.intersections)
+      for (const intersection of intersectLine.getIntersectionsList())
          expect(pointToLineDistance(intersection, intersectLine.path)).to.be.approximately(0, 0.000000001);
    });
 
@@ -55,7 +55,7 @@ describe ('getPathsIntersections', () => {
 
       // checking directions
       const directionsMap: {[id: string]: number} = {};
-      for (const intersection of intersectLine.intersections) {
+      for (const intersection of intersectLine.getIntersectionsList()) {
          const direction = intersection.properties!.direction;
          if (!directionsMap[direction]) {
             directionsMap[direction] = 1;

@@ -17,7 +17,7 @@ describe ('RandomLine class', () => {
     describe ('instantiation', () => {
         it ('should have empty intersections list when created', () => {
             const line = new RandomLine(slalomingAroundLineRun);
-            expect(line.intersections.length).to.equal(0);
+            expect(line.getIntersectionsList().length).to.equal(0);
         });
 
         it ('should have empty clustered intersections map when created', () => {
@@ -40,7 +40,7 @@ describe ('RandomLine class', () => {
             const linePoint = point([3.072277307510376, 50.635539973727376]);
             expect(pointToLineDistance(linePoint, slalomingAroundLineRun)).to.equal(0); // is a line point
 
-            expect(line.intersections.length).to.equal(0);
+            expect(line.getIntersectionsList().length).to.equal(0);
             expect(
                 () => line.getClusteredIntersection(linePoint)
             ).to.throw(RangeError, 'Input point must be a random line intersection.');
@@ -49,7 +49,7 @@ describe ('RandomLine class', () => {
         it ("should throw error if no clustered point is mapped (= if the clustering algorithm hasn't been applied yet)", () => {
             const line = new RandomLine(slalomingAroundLineRun);
             const linePoint = point([3.072277307510376, 50.635539973727376]);
-            line.intersections = [linePoint];
+            line.addIntersections([linePoint]);
 
             expect(
                 () => line.getClusteredIntersection(linePoint)
@@ -59,7 +59,7 @@ describe ('RandomLine class', () => {
         it ('should retrieve associated intersection', () => {
             const line = new RandomLine(slalomingAroundLineRun);
             const linePoint = point([3.072277307510376, 50.635539973727376]);
-            line.intersections = [linePoint];
+            line.addIntersections([linePoint]);
             const clusteredPoint = point([3.08443132164, 50.636254841615]);
             line.setClusteredIntersection([linePoint], clusteredPoint);
 
@@ -76,7 +76,7 @@ describe ('RandomLine class', () => {
                 point([3.072100281715393, 50.63617621595648]),
                 point([3.0738437175750732, 50.637071023341356])
             ];
-            line.intersections = linePoints;    // setting up line's intersections list
+            line.addIntersections(linePoints);
             const clusteredPoint = point([3.08418432164, 50.64821612415]);
 
             line.setClusteredIntersection(linePoints, clusteredPoint);
