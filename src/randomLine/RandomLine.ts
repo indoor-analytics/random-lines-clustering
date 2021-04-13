@@ -7,16 +7,16 @@ import pointToLineDistance from "@turf/point-to-line-distance";
  * Clustered intersections field is filled by the clusterIntersections method.
  */
 export class RandomLine {
-    path: Feature<LineString>;
+    public readonly path: Feature<LineString>;
     intersections: Feature<Point>[];
-    clusteredIntersections: {[pointId: string]: Feature<Point>}
+    protected readonly _clusteredIntersections: {[pointId: string]: Feature<Point>};
 
     constructor (
         line: Feature<LineString>
     ) {
         this.path = line;
         this.intersections = [];
-        this.clusteredIntersections = {};
+        this._clusteredIntersections = {};
     }
 
 
@@ -34,13 +34,14 @@ export class RandomLine {
             throw new RangeError("Input point must be a random line intersection.");
 
         const key = JSON.stringify(point);
-        const associatedClusteredPosition = this.clusteredIntersections[key];
+        const associatedClusteredPosition = this._clusteredIntersections[key];
 
         if (!associatedClusteredPosition)
             throw new RangeError('Input point has no associated clustered position.');
 
         return associatedClusteredPosition;
     }
+
 
     /**
      * Allows clusterIntersections method to set intersections entries for the current random line.
@@ -53,7 +54,7 @@ export class RandomLine {
     ): void {
         for (const intersection of intersections) {
             const key = JSON.stringify(intersection);
-            this.clusteredIntersections[key] = associatedClusteredPoint;
+            this._clusteredIntersections[key] = associatedClusteredPoint;
         }
     }
 }

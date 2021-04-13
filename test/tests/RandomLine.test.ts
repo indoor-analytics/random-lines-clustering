@@ -1,8 +1,17 @@
 import {RandomLine} from "../../src/randomLine/RandomLine";
 import {slalomingAroundLineRun} from "../features/runs";
 import { expect } from "chai";
-import {point} from "@turf/helpers";
+import {Feature, LineString, point} from "@turf/helpers";
 import pointToLineDistance from "@turf/point-to-line-distance";
+
+class TestLine extends RandomLine {
+    constructor (line: Feature<LineString>) {
+        super(line);
+    }
+    getCIntersections() {
+        return this._clusteredIntersections;
+    }
+}
 
 describe ('RandomLine class', () => {
     describe ('instantiation', () => {
@@ -12,8 +21,8 @@ describe ('RandomLine class', () => {
         });
 
         it ('should have empty clustered intersections map when created', () => {
-            const line = new RandomLine(slalomingAroundLineRun);
-            expect(line.clusteredIntersections).to.deep.equal({});
+            const line = new TestLine(slalomingAroundLineRun);
+            expect(line.getCIntersections()).to.deep.equal({});
         });
     });
 

@@ -5,9 +5,9 @@ import { Feature, LineString, Point } from "@turf/helpers";
  * Clustered intersections field is filled by the clusterIntersections method.
  */
 export declare class RandomLine {
-    path: Feature<LineString>;
+    readonly path: Feature<LineString>;
     intersections: Feature<Point>[];
-    clusteredIntersections: {
+    protected readonly _clusteredIntersections: {
         [pointId: string]: Feature<Point>;
     };
     constructor(line: Feature<LineString>);
