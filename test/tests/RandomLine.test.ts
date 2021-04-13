@@ -36,7 +36,21 @@ describe ('RandomLine class', () => {
             expect(lineIntersections.length).to.equal(1);
             expect(lineIntersections[0]).to.deep.equal(linePoint);
         });
+
+        it ('should set several intersections', () => {
+            const line = new RandomLine(slalomingAroundLineRun);
+            const linePoints = [
+                point([3.072277307510376, 50.635539973727376]),
+                point([3.072100281715393, 50.63617621595648]),
+                point([3.0738437175750732, 50.637071023341356])
+            ];
+            line.addIntersections(linePoints);
+
+            const lineIntersections = line.getIntersectionsList();
+            expect(lineIntersections).to.deep.equal(linePoints);
+        });
     });
+
 
     describe('get clustered intersection', () => {
         it ('should throw error with point not on random line', () => {
