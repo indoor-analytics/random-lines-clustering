@@ -26,6 +26,18 @@ describe ('RandomLine class', () => {
         });
     });
 
+    describe ('get/set intersections', () => {
+        it ('should set one intersection', () => {
+            const line = new RandomLine(slalomingAroundLineRun);
+            const linePoint = point([3.072277307510376, 50.635539973727376]);
+            line.addIntersections(linePoint);
+
+            const lineIntersections = line.getIntersectionsList();
+            expect(lineIntersections.length).to.equal(1);
+            expect(lineIntersections[0]).to.deep.equal(linePoint);
+        });
+    });
+
     describe('get clustered intersection', () => {
         it ('should throw error with point not on random line', () => {
             const line = new RandomLine(slalomingAroundLineRun);
