@@ -28,6 +28,7 @@
     "@turf/angle": "^6.3.0",
     "@turf/bbox": "^5.1.5",
     "@turf/bbox-polygon": "^6.3.0",
+    "@turf/center": "^6.3.0",
     "@turf/envelope": "^6.3.0",
     "@turf/helpers": "^6.3.0",
     "@turf/length": "^6.3.0",
