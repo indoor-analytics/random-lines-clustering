@@ -1,6 +1,6 @@
-import {RandomLine} from "../randomLine/RandomLine";
 import length from "@turf/length";
 import lineSlice from "@turf/line-slice";
+import {RandomLine} from "../../randomLine/RandomLine";
 const kde = require("science").stats.kde;
 
 export function KDELineClustering (

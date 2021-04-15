@@ -7,7 +7,7 @@ import {IntersectionsMap} from "./intersectionsMap/IntersectionsMap";
 import {clusterIntersections} from "./intersectionsClustering/clusterIntersections";
 import {RandomLine} from "./randomLine/RandomLine";
 import {buildClusteredPaths} from "./buildClusteredPaths/buildClusteredPaths";
-import {KDELineClustering} from "./intersectionsClustering/KDELineClustering";
+import {KDELineClustering} from "./intersectionsClustering/methods/KDELineClustering";
 
 /**
  * Clusters a bunch of paths using random-picked lines.

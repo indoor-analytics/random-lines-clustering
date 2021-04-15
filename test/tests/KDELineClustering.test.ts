@@ -3,8 +3,8 @@ import {slalomingAroundLineRun} from "../features/runs";
 import {getPathsIntersections} from "../../src/intersections/getPathsIntersections";
 import {RandomLine} from "../../src/randomLine/RandomLine";
 import {randomLine1} from "../features/lines";
-import {KDELineClustering} from "../../src/intersectionsClustering/KDELineClustering";
 import { expect } from "chai";
+import {KDELineClustering} from "../../src/intersectionsClustering/methods/KDELineClustering";
 
 
 describe ('KDE line clustering', () => {
