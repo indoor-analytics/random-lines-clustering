@@ -18,6 +18,8 @@ export function CentroidLineClustering (
     const direction1intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 1);
 
     // associating intersections to newly-computed clustered locations
-    line.setClusteredIntersection(direction0intersections, center(featureCollection(direction0intersections)));
-    line.setClusteredIntersection(direction1intersections, center(featureCollection(direction1intersections)));
+    if (direction0intersections.length !== 0)
+        line.setClusteredIntersection(direction0intersections, center(featureCollection(direction0intersections)));
+    if (direction1intersections.length !== 0)
+        line.setClusteredIntersection(direction1intersections, center(featureCollection(direction1intersections)));
 }
