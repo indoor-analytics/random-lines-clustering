@@ -1,8 +1,8 @@
 import {InputPath} from "../../src/inputPath/InputPath";
-import {slalomingAroundLineRun} from "../features/runs";
+import {aroundCitadelPath2, slalomingAroundLineRun} from "../features/runs";
 import {getPathsIntersections} from "../../src/intersections/getPathsIntersections";
 import {RandomLine} from "../../src/randomLine/RandomLine";
-import {randomLine1} from "../features/lines";
+import {citadelRandomLine1, randomLine1} from "../features/lines";
 import { expect } from "chai";
 import {KDELineClustering} from "../../src/intersectionsClustering/methods/KDELineClustering";
 import {CentroidLineClustering} from "../../src/intersectionsClustering/methods/CentroidLineClustering";
@@ -51,6 +51,25 @@ describe ('Clustering methods', () => {
             // clustered location from second intersection should be different from other clustered location
             const clusteredIntersection1 = firstLine.getClusteredIntersection(secondIntersection);
             expect(clusteredIntersection1).to.not.equal(clusteredIntersection0);
+        });
+
+        // https://gist.github.com/Alystrasz/05b7aac14b49b28a8a4148f2d7d8e3cb
+        it ('should feature only one intersection with one direction picked', () => {
+            const inputPath = new InputPath(aroundCitadelPath2);
+            const intersectionsMap = getPathsIntersections(
+                [inputPath],
+                [new RandomLine(citadelRandomLine1)]
+            );
+
+            // only one line
+            const intersectionLine = intersectionsMap.getAllIntersectionLines()[0];
+            const intersection = intersectionLine.getIntersectionsList()[0];
+
+            CentroidLineClustering(intersectionLine);
+
+            // since there is only one intersection, clustered intersection should have same position
+            const clusteredIntersection = intersectionLine.getClusteredIntersection(intersection);
+            expect(clusteredIntersection.geometry.coordinates).to.deep.equal(intersection.geometry.coordinates);
         });
     });
 });
