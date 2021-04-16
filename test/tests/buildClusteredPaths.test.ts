@@ -10,7 +10,7 @@ import { expect } from "chai";
 
 describe ('buildClusteredPaths', () => {
     // https://gist.github.com/Alystrasz/60fc1efee0689ddd8fbc9a97266a318f
-    describe ('should rebuild citadel average path', () => {
+    it ('should rebuild citadel average path', () => {
         const inputPaths = [new InputPath(aroundCitadelPath1), new InputPath(aroundCitadelPath2)];
         const randomLines = [new RandomLine(citadelRandomLine1), new RandomLine(citadelRandomLine2)];
         const clusteredIntersectionsMap = clusterIntersections(
