@@ -6,7 +6,7 @@ export function buildClusteredPaths (
     inputPaths: InputPath[],
     intersectionsMap: IntersectionsMap
 ) : Feature<LineString>[] {
-    const pathSegments: Feature<LineString>[] = [];
+    const pathSegmentsWeights: {[segmentString: string]: number} = {};
 
     for (const path of inputPaths) {
         let pathIntersections = path.getIntersections();
@@ -14,20 +14,25 @@ export function buildClusteredPaths (
         pathIntersections.shift();  // not comparing first point with itself
 
         for (const intersection of pathIntersections) {
-            pathSegments.push(
-                lineString([
-                    intersectionsMap.getLine(currentIntersection)
-                        .getClusteredIntersection(currentIntersection).geometry.coordinates,
-                    intersectionsMap.getLine(intersection)
-                        .getClusteredIntersection(intersection).geometry.coordinates
-                ])
-            );
+            const segment = lineString([
+                intersectionsMap.getLine(currentIntersection)
+                    .getClusteredIntersection(currentIntersection).geometry.coordinates,
+                intersectionsMap.getLine(intersection)
+                    .getClusteredIntersection(intersection).geometry.coordinates
+            ]);
+
+            const segmentWeightKey: string = JSON.stringify(segment);
+            pathSegmentsWeights[segmentWeightKey]
+                ? pathSegmentsWeights[segmentWeightKey] += 1
+                : pathSegmentsWeights[segmentWeightKey] = 1;
             currentIntersection = intersection;
         }
     }
 
-    // filtering out duplicates
-    const strings = pathSegments.map((segment) => JSON.stringify(segment));
-    const uniques = strings.filter((item, index, array) => array.indexOf(item) === index);
-    return uniques.map((entry) => JSON.parse(entry));
+    // assigning path segments weights
+    return Object.keys(pathSegmentsWeights).map((object) => {
+        const segment: Feature<LineString> = JSON.parse(object);
+        segment.properties!.weight = pathSegmentsWeights[JSON.stringify(segment)];
+        return segment;
+    });
 }
