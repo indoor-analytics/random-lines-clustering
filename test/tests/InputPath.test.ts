@@ -92,5 +92,22 @@ describe ('InputPath class', () => {
             expect(intersections[1]).to.deep.equal(secondIntersection);
             expect(intersections[2]).to.deep.equal(thirdIntersection);
         });
+
+        it ('should sort intersections by distance when added in correct order', () => {
+            const inputPath = new InputPath(aroundCitadelPath1);
+            const firstIntersection = point([3.0444902926683426, 50.644289250351655]);
+            const secondIntersection = point([3.047403506934643, 50.64207848312234]);
+            const thirdIntersection = point([3.041796013712883, 50.63959842195774]);
+
+            inputPath.addIntersection(firstIntersection);
+            inputPath.addIntersection(secondIntersection);
+            inputPath.addIntersection(thirdIntersection);
+
+            const intersections = inputPath.getIntersections();
+            expect(intersections.length).to.equal(3);
+            expect(intersections[0]).to.deep.equal(firstIntersection);
+            expect(intersections[1]).to.deep.equal(secondIntersection);
+            expect(intersections[2]).to.deep.equal(thirdIntersection);
+        });
     });
 });
