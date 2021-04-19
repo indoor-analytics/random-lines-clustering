@@ -20,5 +20,9 @@ describe ('buildClusteredPaths', () => {
 
         const paths = buildClusteredPaths(inputPaths, clusteredIntersectionsMap);
         expect(paths.length).to.equal(2);
+
+        for (const path of paths) {
+            expect(path.properties!.weight).to.equal(2);
+        }
     });
 });
