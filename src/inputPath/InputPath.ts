@@ -24,7 +24,7 @@ export class InputPath {
      */
     public addIntersection ( point: Feature<Point> ): void {
         this._intersections.push(point);
-        const pathOrigin = this._intersections[0];
+        const pathOrigin = this.path.geometry.coordinates[0];
         this._intersections.sort(((a, b) => {
             return length(lineSlice(pathOrigin, a, this.path)) - length(lineSlice(pathOrigin, b, this.path));
         }));
