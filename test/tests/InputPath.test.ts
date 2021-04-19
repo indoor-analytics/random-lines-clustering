@@ -1,5 +1,5 @@
 import {InputPath} from "../../src/inputPath/InputPath";
-import {mouaisRun, slalomingAroundLineRun} from "../features/runs";
+import {aroundCitadelPath1, mouaisRun, slalomingAroundLineRun} from "../features/runs";
 import { expect } from "chai";
 import {point} from "@turf/helpers";
 
@@ -69,6 +69,27 @@ describe ('InputPath class', () => {
             expect(intersections[3]).to.deep.equal(fourthIntersection);
             expect(intersections[4]).to.deep.equal(fifthIntersection);
             expect(intersections[5]).to.deep.equal(sixthIntersection);
+        });
+
+        it ('should sort intersections by distance with several intersection lines', () => {
+            const inputPath = new InputPath(aroundCitadelPath1);
+
+            const firstIntersection = point([3.0444902926683426, 50.644289250351655]);
+            const secondIntersection = point([3.047403506934643, 50.64207848312234]);
+            const thirdIntersection = point([3.041796013712883, 50.63959842195774]);
+
+            // first line intersections
+            inputPath.addIntersection(secondIntersection);
+
+            // second line intersections
+            inputPath.addIntersection(thirdIntersection);
+            inputPath.addIntersection(firstIntersection);
+
+            const intersections = inputPath.getIntersections();
+            expect(intersections.length).to.equal(3);
+            expect(intersections[0]).to.deep.equal(firstIntersection);
+            expect(intersections[1]).to.deep.equal(secondIntersection);
+            expect(intersections[2]).to.deep.equal(thirdIntersection);
         });
     });
 });
