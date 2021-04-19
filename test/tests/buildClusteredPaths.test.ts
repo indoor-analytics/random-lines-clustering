@@ -19,7 +19,6 @@ describe ('buildClusteredPaths', () => {
         );
 
         const paths = buildClusteredPaths(inputPaths, clusteredIntersectionsMap);
-        expect(paths.length).to.equal(1);
-        expect(paths[0].geometry.coordinates.length).to.equal(3);
+        expect(paths.length).to.equal(2);
     });
 });
