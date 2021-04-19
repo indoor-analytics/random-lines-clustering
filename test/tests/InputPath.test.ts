@@ -71,6 +71,7 @@ describe ('InputPath class', () => {
             expect(intersections[5]).to.deep.equal(sixthIntersection);
         });
 
+        // https://gist.github.com/Alystrasz/71eb5384b8f6e59fd1681c8a581a76e0
         it ('should sort intersections by distance with several intersection lines', () => {
             const inputPath = new InputPath(aroundCitadelPath1);
 
