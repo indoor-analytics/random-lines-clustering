@@ -14,7 +14,6 @@ export function buildClusteredPaths (
         pathIntersections.shift();  // not comparing first point with itself
 
         for (const intersection of pathIntersections) {
-            // TODO not push if segment already exists
             pathSegments.push(
                 lineString([
                     intersectionsMap.getLine(currentIntersection)
@@ -27,7 +26,8 @@ export function buildClusteredPaths (
         }
     }
 
-    // TODO link segments
-
-    return pathSegments;
+    // filtering out duplicates
+    const strings = pathSegments.map((segment) => JSON.stringify(segment));
+    const uniques = strings.filter((item, index, array) => array.indexOf(item) === index);
+    return uniques.map((entry) => JSON.parse(entry));
 }
