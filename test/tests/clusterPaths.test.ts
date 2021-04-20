@@ -23,7 +23,13 @@ describe ('clusterPaths', () => {
         it ('should not accept empty paths array', () => {
             expect (
                 () => clusterPaths({paths: []})
-            ).to.throw(Error, 'Input paths array must not be empty.');
+            ).to.throw(Error, 'Input paths array must contain at least two paths.');
+        });
+
+        it ('should not accept paths array containing only one path', () => {
+            expect (
+                () => clusterPaths({paths: [aroundCitadelPath1]})
+            ).to.throw(Error, 'Input paths array must contain at least two paths.');
         });
     });
 });
