@@ -27,7 +27,7 @@ import {clusterPaths} from '@indoor-analytics/random-lines-clustering';
 |:-------|:--------|:-------|:-------|
 | paths: Feature<LineString>[]  | `true` | `undefined` | input paths to cluster |
 | locationsClusteringMethod: (line: RandomLine) => void   | `false`  | `CentroidLineClustering` | this algorithm clusters all intersections of a given line |
-| randomGenerationOptions: Partial<ComputeRandomLinesOptions> | `false` | `{ linesCount: 10, seedGenerator: () => uuidv4() }` | you can decide here how many random lines will be generated, and how they are generated (provide a constant seed if you want to obtain reproducible results) |
+| randomGenerationOptions: Partial\<ComputeRandomLinesOptions\> | `false` | `{ linesCount: 10, seedGenerator: () => uuidv4() }` | you can decide here how many random lines will be generated, and how they are generated (provide a constant seed if you want to obtain reproducible results) |
 
 Please note that the default intersections clustering method (`CentroidLineClustering`) is a **dummy algorithm**, and 
 **must be replaced** by an implementation of your choice. 
