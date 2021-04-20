@@ -36,6 +36,7 @@
     "@turf/line-slice": "^6.3.0",
     "@turf/polygon-to-line": "^6.3.0",
     "@turf/random": "^6.3.0",
+    "d3-array": "^2.12.1",
     "geojson": "^0.5.0",
     "random-seed": "^0.3.0",
     "science": "^1.9.3",
