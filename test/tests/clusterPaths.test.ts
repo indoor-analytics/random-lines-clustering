@@ -8,5 +8,16 @@ describe ('clusterPaths', () => {
             const segments = clusterPaths({paths: [aroundCitadelPath1, aroundCitadelPath2]});
             expect(segments.length).not.to.equal(0);
         });
+
+        it ('should build segments with random generation options', () => {
+            const segments = clusterPaths({
+                paths: [aroundCitadelPath1, aroundCitadelPath2],
+                randomGenerationOptions: {
+                    linesCount: 42,
+                    seedGenerator: () => "hello there"
+                }
+            });
+            expect(segments.length).not.to.equal(0);
+        });
     });
 });
