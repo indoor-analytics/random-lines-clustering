@@ -41,10 +41,11 @@ function epanechnikov (bandwidth: number): (x: number) => number {
 
 function thresholds (line: RandomLine): number[] {
     const distance = length(line.path, {units: "meters"});
-    const step = distance/100;
+    const stepCount = 100;
+    const step = distance/stepCount;
     const thresholds: number[] = [];
 
-    for (let i=0; i<=100; i++) {
+    for (let i=0; i<=stepCount; i++) {
         thresholds.push( i*step );
     }
 
