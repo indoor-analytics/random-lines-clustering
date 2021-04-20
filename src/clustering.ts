@@ -22,6 +22,9 @@ export function clusterPaths
     randomGenerationOptions = COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS
 }: ClusterPathsOptions): Feature<LineString>[]
 {
+    if (paths.length === 0)
+        throw new Error('Input paths array must not be empty.');
+
     const inputPaths: InputPath[] = paths.map((path) => {
         return new InputPath(path);
     });
