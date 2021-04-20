@@ -10,6 +10,7 @@ import {buildClusteredPaths} from "./buildClusteredPaths/buildClusteredPaths";
 import {KDELineClustering} from "./intersectionsClustering/methods/KDELineClustering";
 import {ClusterPathsOptions} from "./clusterPathsOptions/ClusterPathsOptions";
 import {COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS} from "./computeRandomLines/ComputeRandomLinesOptions";
+import {CentroidLineClustering} from "./intersectionsClustering/methods/CentroidLineClustering";
 
 /**
  * Clusters a bunch of paths using random-picked lines.
@@ -17,7 +18,7 @@ import {COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS} from "./computeRandomLines/Comput
 export function clusterPaths
 ({
     paths,
-    locationsClusteringMethod = KDELineClustering,
+    locationsClusteringMethod = CentroidLineClustering,
     randomGenerationOptions = COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS
 }: ClusterPathsOptions): Feature<LineString>[]
 {
