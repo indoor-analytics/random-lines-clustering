@@ -19,5 +19,11 @@ describe ('clusterPaths', () => {
             });
             expect(segments.length).not.to.equal(0);
         });
+
+        it ('should not accept empty paths array', () => {
+            expect (
+                () => clusterPaths({paths: []})
+            ).to.throw(Error, 'Input paths array must not be empty.');
+        });
     });
 });
