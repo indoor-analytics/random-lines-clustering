@@ -1,7 +1,7 @@
 import length from "@turf/length";
 import lineSlice from "@turf/line-slice";
 import {RandomLine} from "../../randomLine/RandomLine";
-const kde = require("science").stats.kde;
+const { mean } = require('d3-array');
 
 export function KDELineClustering (
     line: RandomLine
@@ -18,5 +18,35 @@ export function KDELineClustering (
         length(lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
     );
 
-    const result1 = kde(5, [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]);
+    const bandwidth = 7;
+    const density0 = kde(epanechnikov(bandwidth), thresholds(line), direction0distancesFromOrigin);
+    console.log(density0);
+
+    const density1 = kde(epanechnikov(bandwidth), thresholds(line), direction1distancesFromOrigin);
+    console.log(density1);
+
+    process.exit(42);
+}
+
+
+// https://observablehq.com/@d3/kernel-density-estimation
+
+function kde (kernel: Function, thresholds: number[], data: number[]) {
+    return thresholds.map(t => [t, mean(data, (d: number) => kernel(t - d))]);
+}
+
+function epanechnikov (bandwidth: number): (x: number) => number {
+    return x => Math.abs(x /= bandwidth) <= 1 ? 0.75 * (1 - x * x) / bandwidth : 0;
+}
+
+function thresholds (line: RandomLine): number[] {
+    const distance = length(line.path, {units: "meters"});
+    const step = distance/100;
+    const thresholds: number[] = [];
+
+    for (let i=0; i<=100; i++) {
+        thresholds.push( i*step );
+    }
+
+    return thresholds;
 }
