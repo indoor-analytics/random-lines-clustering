@@ -8,7 +8,6 @@ const { mean } = require('d3-array');
 export function KDELineClustering (
     line: RandomLine
 ): void {
-    // TODO implement KDE clustering
     const lineIntersections = line.getIntersectionsList();
     const direction0intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 0);
     const direction1intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 1);
@@ -20,6 +19,7 @@ export function KDELineClustering (
         length(lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
     );
 
+    // computing clusters
     const bandwidth = 40;
     const direction0clusters = _getDistanceClusters(
         kde(epanechnikov(bandwidth), thresholds(line), direction0distancesFromOrigin),
@@ -30,8 +30,32 @@ export function KDELineClustering (
         line.path
     );
 
-    console.log(direction0clusters);
-    console.log(direction1clusters);
+    // assigning associated clusters to intersections
+    // first direction
+    for (const cluster of direction0clusters) {
+        let matchingIntersections = direction0intersections.filter((intersection) => {
+            const intersectionDistanceToOrigin = length(
+                lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
+            return intersectionDistanceToOrigin >= cluster.minDistance
+                && intersectionDistanceToOrigin <= cluster.maxDistance;
+        });
+
+        console.log(matchingIntersections.length);
+        line.setClusteredIntersection(matchingIntersections, cluster.point);
+    }
+
+    // second direction
+    for (const cluster of direction1clusters) {
+        let matchingIntersections = direction1intersections.filter((intersection) => {
+            const intersectionDistanceToOrigin = length(
+                lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
+            return intersectionDistanceToOrigin >= cluster.minDistance
+                && intersectionDistanceToOrigin <= cluster.maxDistance;
+        });
+
+        console.log(matchingIntersections.length);
+        line.setClusteredIntersection(matchingIntersections, cluster.point);
+    }
 }
 
 
