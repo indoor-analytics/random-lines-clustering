@@ -1,6 +1,8 @@
 import length from "@turf/length";
 import lineSlice from "@turf/line-slice";
 import {RandomLine} from "../../randomLine/RandomLine";
+import {Feature, LineString, Point} from "@turf/helpers";
+import along from "@turf/along";
 const { mean } = require('d3-array');
 
 export function KDELineClustering (
@@ -20,10 +22,12 @@ export function KDELineClustering (
 
     const bandwidth = 40;
     const direction0clusters = _getDistanceClusters(
-        kde(epanechnikov(bandwidth), thresholds(line), direction0distancesFromOrigin)
+        kde(epanechnikov(bandwidth), thresholds(line), direction0distancesFromOrigin),
+        line.path
     );
     const direction1clusters = _getDistanceClusters(
-        kde(epanechnikov(bandwidth), thresholds(line), direction1distancesFromOrigin)
+        kde(epanechnikov(bandwidth), thresholds(line), direction1distancesFromOrigin),
+        line.path
     );
 
     console.log(direction0clusters);
@@ -58,10 +62,12 @@ function thresholds (line: RandomLine): number[] {
 interface DistanceCluster {
     minDistance: number;
     maxDistance: number;
+    point: Feature<Point>;
 }
 
 function _getDistanceClusters (
-    kdeDensityArray: number[][]
+    kdeDensityArray: number[][],
+    line: Feature<LineString>
 ): DistanceCluster[] {
 
     const clusters: DistanceCluster[] = [];
@@ -83,7 +89,8 @@ function _getDistanceClusters (
             if (currentMinDistance !== 0) {
                 clusters.push({
                     minDistance: currentMinDistance,
-                    maxDistance: currentMaxDistance
+                    maxDistance: currentMaxDistance,
+                    point: along(line, (currentMinDistance+currentMaxDistance)/2, {units: "meters"})
                 });
                 currentMinDistance = 0;
                 currentMaxDistance = 0;
