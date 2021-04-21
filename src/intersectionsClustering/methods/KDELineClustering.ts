@@ -18,14 +18,16 @@ export function KDELineClustering (
         length(lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
     );
 
-    const bandwidth = 7;
-    const density0 = kde(epanechnikov(bandwidth), thresholds(line), direction0distancesFromOrigin);
-    console.log(density0);
+    const bandwidth = 40;
+    const direction0clusters = _getDistanceClusters(
+        kde(epanechnikov(bandwidth), thresholds(line), direction0distancesFromOrigin)
+    );
+    const direction1clusters = _getDistanceClusters(
+        kde(epanechnikov(bandwidth), thresholds(line), direction1distancesFromOrigin)
+    );
 
-    const density1 = kde(epanechnikov(bandwidth), thresholds(line), direction1distancesFromOrigin);
-    console.log(density1);
-
-    process.exit(42);
+    console.log(direction0clusters);
+    console.log(direction1clusters);
 }
 
 
@@ -41,7 +43,7 @@ function epanechnikov (bandwidth: number): (x: number) => number {
 
 function thresholds (line: RandomLine): number[] {
     const distance = length(line.path, {units: "meters"});
-    const stepCount = 100;
+    const stepCount = 10;
     const step = distance/stepCount;
     const thresholds: number[] = [];
 
@@ -50,4 +52,44 @@ function thresholds (line: RandomLine): number[] {
     }
 
     return thresholds;
+}
+
+
+interface DistanceCluster {
+    minDistance: number;
+    maxDistance: number;
+}
+
+function _getDistanceClusters (
+    kdeDensityArray: number[][]
+): DistanceCluster[] {
+
+    const clusters: DistanceCluster[] = [];
+    let currentMinDistance = 0;
+    let currentMaxDistance = 0;
+
+    for (const entry of kdeDensityArray) {
+        const distanceToOrigin = entry[0];
+        const value = entry[1];
+
+        if (value !== 0) {
+            if (currentMinDistance === 0)
+                currentMinDistance = distanceToOrigin;
+            else
+                currentMaxDistance = distanceToOrigin;
+        }
+
+        else {
+            if (currentMinDistance !== 0) {
+                clusters.push({
+                    minDistance: currentMinDistance,
+                    maxDistance: currentMaxDistance
+                });
+                currentMinDistance = 0;
+                currentMaxDistance = 0;
+            }
+        }
+    }
+
+    return clusters;
 }
