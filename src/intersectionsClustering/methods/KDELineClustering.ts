@@ -9,39 +9,37 @@ export function KDELineClustering (
     line: RandomLine
 ): void {
     const lineIntersections = line.getIntersectionsList();
-    const direction0intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 0);
-    const direction1intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 1);
 
-    const direction0distancesFromOrigin = direction0intersections.map((intersection) =>
-        length(lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
-    );
-    const direction1distancesFromOrigin = direction1intersections.map((intersection) =>
-        length(lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
-    );
+    // assigning distances to origin to intersections
+    lineIntersections.map((intersection) => {
+        intersection.properties!.distanceToOrigin =
+            length(lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"});
+    });
+    let direction0intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 0);
+    let direction1intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 1);
 
     // computing clusters
     const bandwidth = 40;
     const direction0clusters = _getDistanceClusters(
-        kde(epanechnikov(bandwidth), thresholds(line), direction0distancesFromOrigin),
+        kde(epanechnikov(bandwidth), thresholds(line), direction0intersections),
         line.path
     );
     const direction1clusters = _getDistanceClusters(
-        kde(epanechnikov(bandwidth), thresholds(line), direction1distancesFromOrigin),
+        kde(epanechnikov(bandwidth), thresholds(line), direction1intersections),
         line.path
     );
 
     // assigning associated clusters to intersections
     // first direction
     for (const cluster of direction0clusters) {
-        let matchingIntersections = direction0intersections.filter((intersection) => {
-            const intersectionDistanceToOrigin = length(
-                lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
-            return intersectionDistanceToOrigin >= cluster.minDistance
-                && intersectionDistanceToOrigin <= cluster.maxDistance;
-        });
-
-        console.log(matchingIntersections.length);
-        line.setClusteredIntersection(matchingIntersections, cluster.point);
+        line.setClusteredIntersection(
+            direction0intersections.filter((intersection) => {
+                    const intersectionDistanceToOrigin = length(
+                        lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
+                    return intersectionDistanceToOrigin >= cluster.minDistance
+                        && intersectionDistanceToOrigin <= cluster.maxDistance;
+                }
+            ), cluster.point);
     }
 
     // second direction
@@ -52,8 +50,6 @@ export function KDELineClustering (
             return intersectionDistanceToOrigin >= cluster.minDistance
                 && intersectionDistanceToOrigin <= cluster.maxDistance;
         });
-
-        console.log(matchingIntersections.length);
         line.setClusteredIntersection(matchingIntersections, cluster.point);
     }
 }
@@ -61,8 +57,8 @@ export function KDELineClustering (
 
 // https://observablehq.com/@d3/kernel-density-estimation
 
-function kde (kernel: Function, thresholds: number[], data: number[]) {
-    return thresholds.map(t => [t, mean(data, (d: number) => kernel(t - d))]);
+function kde (kernel: Function, thresholds: number[], data: Feature<Point>[]) {
+    return thresholds.map(t => [t, mean(data, (d: Feature<Point>) => kernel(t - d.properties!.distanceToOrigin))]);
 }
 
 function epanechnikov (bandwidth: number): (x: number) => number {
