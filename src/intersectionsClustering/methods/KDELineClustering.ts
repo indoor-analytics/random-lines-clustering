@@ -34,10 +34,9 @@ export function KDELineClustering (
     for (const cluster of direction0clusters) {
         line.setClusteredIntersection(
             direction0intersections.filter((intersection) => {
-                    const intersectionDistanceToOrigin = length(
-                        lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
-                    return intersectionDistanceToOrigin >= cluster.minDistance
-                        && intersectionDistanceToOrigin <= cluster.maxDistance;
+                    const distanceToOrigin = intersection.properties!.distanceToOrigin;
+                    return distanceToOrigin >= cluster.minDistance
+                        && distanceToOrigin <= cluster.maxDistance;
                 }
             ), cluster.point);
     }
@@ -45,10 +44,9 @@ export function KDELineClustering (
     // second direction
     for (const cluster of direction1clusters) {
         let matchingIntersections = direction1intersections.filter((intersection) => {
-            const intersectionDistanceToOrigin = length(
-                lineSlice(line.path.geometry.coordinates[0], intersection, line.path), {units: "meters"})
-            return intersectionDistanceToOrigin >= cluster.minDistance
-                && intersectionDistanceToOrigin <= cluster.maxDistance;
+            const distanceToOrigin = intersection.properties!.distanceToOrigin;
+            return distanceToOrigin >= cluster.minDistance
+                && distanceToOrigin <= cluster.maxDistance;
         });
         line.setClusteredIntersection(matchingIntersections, cluster.point);
     }
