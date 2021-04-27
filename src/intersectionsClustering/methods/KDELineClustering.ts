@@ -19,7 +19,7 @@ export function KDELineClustering (
     let direction1intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 1);
 
     // computing clusters
-    const bandwidth = 40;
+    const bandwidth = 81;
     const direction0clusters = _getDistanceClusters(
         kde(epanechnikov(bandwidth), thresholds(line), direction0intersections),
         line.path
@@ -32,13 +32,12 @@ export function KDELineClustering (
     // assigning associated clusters to intersections
     // first direction
     for (const cluster of direction0clusters) {
-        line.setClusteredIntersection(
-            direction0intersections.filter((intersection) => {
-                    const distanceToOrigin = intersection.properties!.distanceToOrigin;
-                    return distanceToOrigin >= cluster.minDistance
-                        && distanceToOrigin <= cluster.maxDistance;
-                }
-            ), cluster.point);
+        let matchingIntersections = direction0intersections.filter((intersection) => {
+            const distanceToOrigin = intersection.properties!.distanceToOrigin;
+            return distanceToOrigin >= cluster.minDistance
+                && distanceToOrigin <= cluster.maxDistance;
+        });
+        line.setClusteredIntersection(matchingIntersections, cluster.point);
     }
 
     // second direction
