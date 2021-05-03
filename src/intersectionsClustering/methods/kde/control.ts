@@ -12,6 +12,9 @@ export function kdeLineClustering (
     line: RandomLine,
     k: number
 ): void {
+    if (k === 0)
+        throw new RangeError('k value must be higher than 0.');
+
     // begin with a small bandwidth
 
     // while k is not satisfied, increase bandwidth
