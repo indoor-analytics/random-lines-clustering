@@ -1,7 +1,7 @@
 import {InputPath} from "../../src/inputPath/InputPath";
 import {citadelTopToBottomPaths, slalomingAroundLineRun} from "../features/runs";
 import {getPathsIntersections} from "../../src/intersections/getPathsIntersections";
-import {KDELineClusteringCore} from "../../src/intersectionsClustering/methods/kde/KDELineClusteringCore";
+import {kdeLineClusteringCore} from "../../src/intersectionsClustering/methods/kde/core";
 import { expect } from "chai";
 import {citadelRandomLine1, randomLine1} from "../features/lines";
 import {RandomLine} from "../../src/randomLine/RandomLine";
@@ -17,7 +17,7 @@ describe ('KDE clustering', () => {
             const firstLine = intersectionsMap.getAllIntersectionLines()[0];
             const firstIntersection = firstLine.getIntersectionsList()[0];
 
-            KDELineClusteringCore(firstLine, 81);
+            kdeLineClusteringCore(firstLine, 81);
             const clusteredIntersection = firstLine.getClusteredIntersection(firstIntersection);
             expect(clusteredIntersection).not.to.equal(undefined);
         });
@@ -36,7 +36,7 @@ describe ('KDE clustering', () => {
             const thirdIntersection = intersections[2];
             const fourthIntersection = intersections[3];
 
-            KDELineClusteringCore(firstLine, 81);
+            kdeLineClusteringCore(firstLine, 81);
 
             // first and second paths should point to one cluster
             // third and fourth paths should point to another

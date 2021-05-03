@@ -4,7 +4,6 @@ import {getPathsIntersections} from "../../src/intersections/getPathsIntersectio
 import {RandomLine} from "../../src/randomLine/RandomLine";
 import {citadelRandomLine1, randomLine1} from "../features/lines";
 import { expect } from "chai";
-import {KDELineClusteringCore} from "../../src/intersectionsClustering/methods/kde/KDELineClusteringCore";
 import {CentroidLineClustering} from "../../src/intersectionsClustering/methods/CentroidLineClustering";
 
 
