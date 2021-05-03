@@ -106,5 +106,15 @@ describe ('KDE clustering', () => {
             expect(clusteredIntersection1).to.deep.equal(clusteredIntersection3);
             expect(clusteredIntersection1).to.deep.equal(clusteredIntersection4);
         });
+
+        it ('should throw an error with k=0', () => {
+            const inputPaths = citadelTopToBottomPaths.map((path) => new InputPath(path));
+            const intersectionsMap = getPathsIntersections(inputPaths, [new RandomLine(citadelRandomLine1)]);
+            const firstLine = intersectionsMap.getAllIntersectionLines()[0];
+
+            expect(
+                () => kdeLineClustering(firstLine, 0)
+            ).to.throw(RangeError, 'k value must be higher than 0.');
+        });
     });
 });
