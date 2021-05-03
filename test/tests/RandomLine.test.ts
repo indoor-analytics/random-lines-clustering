@@ -3,6 +3,7 @@ import {slalomingAroundLineRun} from "../features/runs";
 import { expect } from "chai";
 import {Feature, LineString, point} from "@turf/helpers";
 import pointToLineDistance from "@turf/point-to-line-distance";
+import {CentroidLineClustering} from "../../src/intersectionsClustering/methods/CentroidLineClustering";
 
 class TestLine extends RandomLine {
     constructor (line: Feature<LineString>) {
@@ -129,6 +130,26 @@ describe ('RandomLine class', () => {
             const newLine = RandomLine.clone(line);
             expect(newLine.path).to.deep.equal(line.path);
             expect(newLine.getIntersectionsList()).to.deep.equal(linePoints);
+        });
+
+        it ('should not clone clustered intersections', () => {
+            const line = new RandomLine(slalomingAroundLineRun);
+            const linePoints = [
+                point([3.072277307510376, 50.635539973727376]),
+                point([3.072100281715393, 50.63617621595648]),
+                point([3.0738437175750732, 50.637071023341356])
+            ];
+            line.addIntersections(linePoints);
+
+            // manually associating clustered intersections
+            const clusteredPoint = point([3.08418432164, 50.64821612415]);
+            line.setClusteredIntersection(linePoints, clusteredPoint);
+
+            const newLine = RandomLine.clone(line);
+            expect(
+                () => newLine.getClusteredIntersection(linePoints[0])
+            )
+                .to.throw(RangeError, 'Input point has no associated clustered position.')
         });
     });
 });
