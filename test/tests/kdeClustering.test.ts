@@ -79,5 +79,32 @@ describe ('KDE clustering', () => {
             expect(clusteredIntersection1).to.deep.equal(clusteredIntersection2);
             expect(clusteredIntersection3).to.deep.equal(clusteredIntersection4);
         });
+
+        // https://gist.github.com/Alystrasz/a6b3599d5a16dafb5cd9f5648f0a3fdf
+        it ('should compute one intersection cluster with k=4', () => {
+            const inputPaths = citadelTopToBottomPaths.map((path) => new InputPath(path));
+            const intersectionsMap = getPathsIntersections(inputPaths, [new RandomLine(citadelRandomLine1)]);
+
+            // using first line (same line will appear four times)
+            const firstLine = intersectionsMap.getAllIntersectionLines()[0];
+            const intersections = firstLine.getIntersectionsList();
+            // because lines are conveniently sorted from left to right, intersections match lines
+            const firstIntersection = intersections[0];
+            const secondIntersection = intersections[1];
+            const thirdIntersection = intersections[2];
+            const fourthIntersection = intersections[3];
+
+            kdeLineClustering(firstLine, 4);
+
+            // all paths should lead to same intersection
+            const clusteredIntersection1 = firstLine.getClusteredIntersection(firstIntersection);
+            const clusteredIntersection2 = firstLine.getClusteredIntersection(secondIntersection);
+            const clusteredIntersection3 = firstLine.getClusteredIntersection(thirdIntersection);
+            const clusteredIntersection4 = firstLine.getClusteredIntersection(fourthIntersection);
+
+            expect(clusteredIntersection1).to.deep.equal(clusteredIntersection2);
+            expect(clusteredIntersection1).to.deep.equal(clusteredIntersection3);
+            expect(clusteredIntersection1).to.deep.equal(clusteredIntersection4);
+        });
     });
 });
