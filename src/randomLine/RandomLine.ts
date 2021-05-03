@@ -56,7 +56,7 @@ export class RandomLine {
 
     /**
      * Allows clusterIntersections method to set _intersections entries for the current random line.
-     * @param _intersections array of positions to associate to the new clustered position
+     * @param intersections array of positions to associate to the new clustered position
      * @param associatedClusteredPoint position to associate to a number of line points
      */
     public setClusteredIntersection (
