@@ -5,7 +5,7 @@ import {Feature, LineString, Point} from "@turf/helpers";
 import along from "@turf/along";
 const { mean } = require('d3-array');
 
-export function KDELineClusteringCore (
+export function kdeLineClusteringCore (
     line: RandomLine,
     bandwidth: number
 ): void {
