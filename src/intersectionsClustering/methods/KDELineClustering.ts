@@ -6,7 +6,8 @@ import along from "@turf/along";
 const { mean } = require('d3-array');
 
 export function KDELineClustering (
-    line: RandomLine
+    line: RandomLine,
+    bandwidth: number
 ): void {
     const lineIntersections = line.getIntersectionsList();
 
@@ -19,7 +20,6 @@ export function KDELineClustering (
     let direction1intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 1);
 
     // computing clusters
-    const bandwidth = 81;
     const direction0clusters = _getDistanceClusters(
         kde(epanechnikov(bandwidth), thresholds(line), direction0intersections),
         line.path
