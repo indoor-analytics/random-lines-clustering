@@ -1,11 +1,11 @@
 import length from "@turf/length";
 import lineSlice from "@turf/line-slice";
-import {RandomLine} from "../../randomLine/RandomLine";
+import {RandomLine} from "../../../randomLine/RandomLine";
 import {Feature, LineString, Point} from "@turf/helpers";
 import along from "@turf/along";
 const { mean } = require('d3-array');
 
-export function KDELineClustering (
+export function KDELineClusteringCore (
     line: RandomLine,
     bandwidth: number
 ): void {

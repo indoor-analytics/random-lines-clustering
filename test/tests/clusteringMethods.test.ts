@@ -4,7 +4,7 @@ import {getPathsIntersections} from "../../src/intersections/getPathsIntersectio
 import {RandomLine} from "../../src/randomLine/RandomLine";
 import {citadelRandomLine1, randomLine1} from "../features/lines";
 import { expect } from "chai";
-import {KDELineClustering} from "../../src/intersectionsClustering/methods/KDELineClustering";
+import {KDELineClusteringCore} from "../../src/intersectionsClustering/methods/kde/KDELineClusteringCore";
 import {CentroidLineClustering} from "../../src/intersectionsClustering/methods/CentroidLineClustering";
 
 
@@ -19,7 +19,7 @@ describe ('Clustering methods', () => {
             const firstLine = intersectionsMap.getAllIntersectionLines()[0];
             const firstIntersection = firstLine.getIntersectionsList()[0];
 
-            KDELineClustering(firstLine, 81);
+            KDELineClusteringCore(firstLine, 81);
             const clusteredIntersection = firstLine.getClusteredIntersection(firstIntersection);
             expect(clusteredIntersection).not.to.equal(undefined);
         });
@@ -38,7 +38,7 @@ describe ('Clustering methods', () => {
             const thirdIntersection = intersections[2];
             const fourthIntersection = intersections[3];
 
-            KDELineClustering(firstLine, 81);
+            KDELineClusteringCore(firstLine, 81);
 
             // first and second paths should point to one cluster
             // third and fourth paths should point to another

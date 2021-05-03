@@ -7,7 +7,7 @@ import {IntersectionsMap} from "./intersectionsMap/IntersectionsMap";
 import {clusterIntersections} from "./intersectionsClustering/clusterIntersections";
 import {RandomLine} from "./randomLine/RandomLine";
 import {buildClusteredPaths} from "./buildClusteredPaths/buildClusteredPaths";
-import {KDELineClustering} from "./intersectionsClustering/methods/KDELineClustering";
+import {KDELineClusteringCore} from "./intersectionsClustering/methods/kde/KDELineClusteringCore";
 import {ClusterPathsOptions} from "./clusterPathsOptions/ClusterPathsOptions";
 import {COMPUTE_RANDOM_LINES_OPTIONS_DEFAULTS} from "./computeRandomLines/ComputeRandomLinesOptions";
 import {CentroidLineClustering} from "./intersectionsClustering/methods/CentroidLineClustering";
