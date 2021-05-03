@@ -75,6 +75,8 @@ export class RandomLine {
      * @param line object to clone
      */
     static clone (line: RandomLine): RandomLine {
-        return line;
+        const clone = new RandomLine(line.path);
+        clone.addIntersections(line.getIntersectionsList());
+        return clone;
     }
 }
