@@ -24,4 +24,9 @@ export declare class RandomLine {
      * @param associatedClusteredPoint position to associate to a number of line points
      */
     setClusteredIntersection(intersections: Feature<Point>[], associatedClusteredPoint: Feature<Point>): void;
+    /**
+     * Clones a random line with its intersections list, but does not clone clustered intersections.
+     * @param line object to clone
+     */
+    static clone(line: RandomLine): RandomLine;
 }

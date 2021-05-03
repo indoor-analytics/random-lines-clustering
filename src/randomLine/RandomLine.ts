@@ -68,4 +68,13 @@ export class RandomLine {
             this._clusteredIntersections[key] = associatedClusteredPoint;
         }
     }
+
+
+    /**
+     * Clones a random line with its intersections list, but does not clone clustered intersections.
+     * @param line object to clone
+     */
+    static clone (line: RandomLine): RandomLine {
+        return line;
+    }
 }

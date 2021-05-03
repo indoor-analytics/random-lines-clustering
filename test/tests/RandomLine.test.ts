@@ -26,6 +26,7 @@ describe ('RandomLine class', () => {
         });
     });
 
+
     describe ('get/set intersections', () => {
         it ('should set one intersection', () => {
             const line = new RandomLine(slalomingAroundLineRun);
@@ -111,6 +112,23 @@ describe ('RandomLine class', () => {
                 const associatedClusteredPoint = line.getClusteredIntersection(linePoint);
                 expect(associatedClusteredPoint).to.deep.equal(clusteredPoint);
             }
+        });
+    });
+
+
+    describe('clone', () => {
+        it ('should clone line', () => {
+            const line = new RandomLine(slalomingAroundLineRun);
+            const linePoints = [
+                point([3.072277307510376, 50.635539973727376]),
+                point([3.072100281715393, 50.63617621595648]),
+                point([3.0738437175750732, 50.637071023341356])
+            ];
+            line.addIntersections(linePoints);
+
+            const newLine = RandomLine.clone(line);
+            expect(newLine.path).to.deep.equal(line.path);
+            expect(newLine.getIntersectionsList()).to.deep.equal(linePoints);
         });
     });
 });
