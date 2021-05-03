@@ -1,4 +1,5 @@
 import {RandomLine} from "../../../randomLine/RandomLine";
+import {kdeLineClusteringCore} from "./core";
 
 
 /**
@@ -15,9 +16,20 @@ export function kdeLineClustering (
     if (k === 0)
         throw new RangeError('k value must be higher than 0.');
 
-    // begin with a small bandwidth
+    let satisfied = true;   // TODO set to false
+    let bandwidth = 0;
 
-    // while k is not satisfied, increase bandwidth
+    while (!satisfied) {
+        const clone = new RandomLine(line.path);    // TODO properly clone line
+        kdeLineClusteringCore(clone, bandwidth);
+
+        // TODO get all line intersections
+        // TODO check intersections weight
+
+        // while k is not satisfied, increase bandwidth
+        bandwidth += 1;
+    }
 
     // assign intersections to original random line
+    console.log(bandwidth);
 }
