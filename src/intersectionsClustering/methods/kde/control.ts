@@ -20,7 +20,7 @@ export function kdeLineClustering (
     let bandwidth = 0;
 
     while (!satisfied) {
-        const clone = new RandomLine(line.path);    // TODO properly clone line
+        const clone = RandomLine.clone(line);
         kdeLineClusteringCore(clone, bandwidth);
 
         // TODO get all line intersections
