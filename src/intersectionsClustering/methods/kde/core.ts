@@ -37,6 +37,7 @@ export function kdeLineClusteringCore (
             return distanceToOrigin >= cluster.minDistance
                 && distanceToOrigin <= cluster.maxDistance;
         });
+        cluster.point.properties!.weight = matchingIntersections.length;
         line.setClusteredIntersection(matchingIntersections, cluster.point);
     }
 
@@ -47,6 +48,7 @@ export function kdeLineClusteringCore (
             return distanceToOrigin >= cluster.minDistance
                 && distanceToOrigin <= cluster.maxDistance;
         });
+        cluster.point.properties!.weight = matchingIntersections.length;
         line.setClusteredIntersection(matchingIntersections, cluster.point);
     }
 }
