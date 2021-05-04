@@ -19,37 +19,35 @@ export function kdeLineClusteringCore (
     let direction0intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 0);
     let direction1intersections = lineIntersections.filter((intersection) => intersection.properties!.direction === 1);
 
+
     // computing clusters
-    const direction0clusters = _getDistanceClusters(
-        kde(epanechnikov(bandwidth), thresholds(line), direction0intersections),
-        line.path
-    );
-    const direction1clusters = _getDistanceClusters(
-        kde(epanechnikov(bandwidth), thresholds(line), direction1intersections),
-        line.path
-    );
+    const direction0 = {
+        intersections: direction0intersections,
+        clusters: _getDistanceClusters(
+            kde(epanechnikov(bandwidth), thresholds(line), direction0intersections),
+            line.path
+        )
+    };
+    const direction1 = {
+        intersections: direction1intersections,
+        clusters: _getDistanceClusters(
+            kde(epanechnikov(bandwidth), thresholds(line), direction1intersections),
+            line.path
+        )
+    };
+
 
     // assigning associated clusters to intersections
-    // first direction
-    for (const cluster of direction0clusters) {
-        let matchingIntersections = direction0intersections.filter((intersection) => {
-            const distanceToOrigin = intersection.properties!.distanceToOrigin;
-            return distanceToOrigin >= cluster.minDistance
-                && distanceToOrigin <= cluster.maxDistance;
-        });
-        cluster.point.properties!.weight = matchingIntersections.length;
-        line.setClusteredIntersection(matchingIntersections, cluster.point);
-    }
-
-    // second direction
-    for (const cluster of direction1clusters) {
-        let matchingIntersections = direction1intersections.filter((intersection) => {
-            const distanceToOrigin = intersection.properties!.distanceToOrigin;
-            return distanceToOrigin >= cluster.minDistance
-                && distanceToOrigin <= cluster.maxDistance;
-        });
-        cluster.point.properties!.weight = matchingIntersections.length;
-        line.setClusteredIntersection(matchingIntersections, cluster.point);
+    for (const direction of [direction0, direction1]) {
+        for (const cluster of direction.clusters) {
+            let matchingIntersections = direction.intersections.filter((intersection) => {
+                const distanceToOrigin = intersection.properties!.distanceToOrigin;
+                return distanceToOrigin >= cluster.minDistance
+                    && distanceToOrigin <= cluster.maxDistance;
+            });
+            cluster.point.properties!.weight = matchingIntersections.length;
+            line.setClusteredIntersection(matchingIntersections, cluster.point);
+        }
     }
 }
 
