@@ -16,20 +16,33 @@ export function kdeLineClustering (
     if (k === 0)
         throw new RangeError('k value must be higher than 0.');
 
-    let satisfied = true;   // TODO set to false
+    let satisfied = false;
     let bandwidth = 0;
 
     while (!satisfied) {
         const clone = RandomLine.clone(line);
         kdeLineClusteringCore(clone, bandwidth);
 
-        // TODO get all line intersections
-        // TODO check intersections weight
+        const intersections = clone.getIntersectionsList();
+        satisfied = true;
+
+        // clustering might fail with some bandwidth values
+        try {
+            for (const intersection of intersections) {
+                const cluster = clone.getClusteredIntersection(intersection);
+                if (cluster.properties!.weight < k) {
+                    satisfied = false;
+                    break;
+                }
+            }
+
+        } catch (err) {
+            satisfied = false;
+        }
 
         // while k is not satisfied, increase bandwidth
         bandwidth += 1;
     }
 
-    // assign intersections to original random line
-    console.log(bandwidth);
+    // TODO assign intersections to original random line
 }
